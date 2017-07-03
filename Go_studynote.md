@@ -1,5 +1,9 @@
-<h1 style="text-align:center">Go Study Note</h1>
-<p style="text-align:right"><b>Axect</b></p>
+<h1 style="text-align:center">
+    Go Study Note
+</h1>
+<p style="text-align:right">
+    <b>Axect</b>
+</p>
 
 ## 1. Start Setting
 1. Install Golang
