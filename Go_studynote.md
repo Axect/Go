@@ -2,7 +2,7 @@
     Go Study Note
 </h1>
 <p style="text-align:right">
-    <b>Axect</b>
+    Provided by <b>Axect</b>
 </p>
 
 ## 1. Start Setting
