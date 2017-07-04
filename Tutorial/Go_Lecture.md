@@ -108,6 +108,7 @@
     > Go | 1.98 | 3,044 | 1344 | 5.65 |
     > Python3 | 110.91 | 8,024 | 977 | 110.87 |
     > C | 1.33 | 2,856 | 2249 | 5.28 |
+    > Java | 2.13 | 36,036 | 2457 | 5.66	
     >
     > -Reference (<a href="http://benchmarksgame.alioth.debian.org/u64q/compare.php?lang=go&lang2=python3" target="blank">Benchmark Game</a>)
 
