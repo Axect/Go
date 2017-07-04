@@ -74,6 +74,14 @@
     >
     > - Python (Hello World)
     > ```Python
+    > def HelloWorld():
+    >   print("Hello World!\n")
+    > 
+    > if __name__=="__main__":
+    >   HelloWorld()
+    > ```
+    >   > or
+    > ```Python
     > print("Hello World!\n")
     > ```
     > - Go (Hello World)
