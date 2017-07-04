@@ -1,5 +1,5 @@
 <h1 style="text-align:center">Go</h1>
-<p style="text-align:right">Provieded by <b>Tae Geun Kim</b></p>
+<p style="text-align:right">Provided by <b>Tae Geun Kim</b></p>
 
 ## 1. What is the **Go**?
 
