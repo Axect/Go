@@ -49,3 +49,5 @@ Jun 2017 | Jun 2016 | Change | Programming Language | Ratings | Change
 15 | 48 | Great Up | Go | 2.044% | +1.83%
 16 | 11 | Down | Visual Basic | 2.011% | -0.24%
 17 | 17 |  | MATLAB | 1.996% | +0.55%
+
+<img src="http://sogrady-media.redmonk.com/sogrady/files/2017/06/lang.rank_.617.wm_.png"></img>
