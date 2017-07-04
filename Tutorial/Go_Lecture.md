@@ -99,5 +99,20 @@
     > Go | 1.98 | 3,044 | 1344 | 5.65 |
     > Python3 | 110.91 | 8,024 | 977 | 110.87 |
     > C | 1.33 | 2,856 | 2249 | 5.28 |
+    >
+    > * Reference (<a href="http://benchmarksgame.alioth.debian.org/u64q/compare.php?lang=go&lang2=python3" target="blank">Benchmark Game</a>)
 
-    > * Reference (<a href="http://benchmarksgame.alioth.debian.org/u64q/compare.php?lang=go&lang2=python3" target="blank">Benchmark Game</a>) 
+4. Concurrency (!= Parallelism)
+
+    > 커피를 마시면서 신문을 보고 있는 사람이 있습니다. 이때, 이 사람은 굳이 커피를 다 마시고 신문을 읽을 필요는 없습니다. 신문을 보다가 커피를 마시기 위하여 신문 보는 것을 짧은 시간 잠시 중단하고 커피를 한 모금 마신 뒤에 신문을 보는 것도 가능하죠. 
+    >
+    > -출처 : Discovery Go (저자: 염제현)
+
+## 4. How to Study Go?
+
+> -안타깝게도 초급자용 책은 존재하지 않음.
+> * Discovery Go (저자: 염제현)
+> * Go in Action (저자: 윌리엄 케네디 외 2명, 옮김: 장현희)
+  
+> -쉽게 배우는 자료는 존재
+> * Tour of Go (<a href="https://go-tour-kr.appspot.com/#1" target="blank">Link</a>)
