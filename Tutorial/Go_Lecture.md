@@ -86,4 +86,16 @@ Jun 2017 | Jun 2016 | Change | Programming Language | Ratings | Change
     >   fmt.Println("Hello World!\n")    
     >}
     >```
-     -Simplicity : Python > Go >> C >> Java
+     - Simplicity : Python > Go >> C >> Java
+2. Fast Compile
+    > Go 언어의 특징은 컴파일 언어이지만 컴파일러의 컴파일 속도가 매우 빨라 인터프리터 언어처럼 쓸 수 있다는 점에 있다.[13] 이는 언어의 문법 구조를 개선함으로써 달성하였다. 컴파일러가 소스 코드를 해석하는 pass 수를 줄여서 달성한 것으로 보인다. 접근하기 어렵지 않고, 코드 역시 간결하면서도 컴파일 언어답게 높은 성능을 낼 수 있다는 점이 호평을 받는다.  
+    -출처: 나무위키-
+
+3. Just Fast
+
+source | secs | mem | gz | cpu |
+-------|------|-----|----|-----|
+Go | 1.98 | 3,044 | 1344 | 5.65 |
+Python3 | 110.91 | 8,024 | 977 | 110.87 |
+
+- Reference (<a href="http://benchmarksgame.alioth.debian.org/u64q/compare.php?lang=go&lang2=python3" target="blank">Benchmark Game</a>) 
