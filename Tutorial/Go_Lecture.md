@@ -1,5 +1,5 @@
 <h1 style="text-align:center">Go</h1>
-<p style="text-align:right"><b>Tae Geun Kim</b></p>
+<p style="text-align:right">Provieded by <b>Tae Geun Kim</b></p>
 
 ## 1. What is the **Go**?
 
@@ -26,7 +26,9 @@ Year | Winner
 2004 |  PHP
 2003 |  C++
 
-Of course, Go is not the most popular language.
+* Of course, Go is not the most popular language.
+
+### - TIOBE Index for June 2017
 
 Jun 2017 | Jun 2016 | Change | Programming Language | Ratings | Change
 ---------|----------|--------|----------------------|---------|-------
