@@ -50,4 +50,10 @@ Jun 2017 | Jun 2016 | Change | Programming Language | Ratings | Change
 16 | 11 | Down | Visual Basic | 2.011% | -0.24%
 17 | 17 |  | MATLAB | 1.996% | +0.55%
 
+### - RedMonk Ranking
+
 <img src="http://sogrady-media.redmonk.com/sogrady/files/2017/06/lang.rank_.617.wm_.png"></img>
+
+### - Additional References
+
+<a href="https://insights.stackoverflow.com/survey/2016#technology-most-loved-dreaded-and-wanted" target="blank">Most Loved and Dreaded Languages of Programmers 2017</a>
