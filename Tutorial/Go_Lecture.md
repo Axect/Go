@@ -9,22 +9,22 @@
 ## 2. Why do we use **Go**?
 
 ### - Programming Language Hall of Fame
-Year | Winner
------|-------
-2016 |  Go
-2015 |  Java
-2014 |  JavaScript
-2013 |  Transact-SQL
-2012 |  Objective-C
-2011 |  Objective-C
-2010 |  Python
-2009 |  Go
-2008 |  C
-2007 |  Python
-2006 |  Ruby
-2005 |  Java
-2004 |  PHP
-2003 |  C++
+    > Year | Winner
+    > -----|-------
+    > 2016 |  Go
+    > 2015 |  Java
+    > 2014 |  JavaScript
+    > 2013 |  Transact-SQL
+    > 2012 |  Objective-C
+    > 2011 |  Objective-C
+    > 2010 |  Python
+    > 2009 |  Go
+    > 2008 |  C
+    > 2007 |  Python
+    > 2006 |  Ruby
+    > 2005 |  Java
+    > 2004 |  PHP
+    > 2003 |  C++
 
 * Of course, Go is not the most popular language.
 
@@ -94,10 +94,10 @@ Jun 2017 | Jun 2016 | Change | Programming Language | Ratings | Change
 
 3. Just Fast
 
-> source | secs | mem | gz | cpu |
-> -------|------|-----|----|-----|
-> Go | 1.98 | 3,044 | 1344 | 5.65 |
-> Python3 | 110.91 | 8,024 | 977 | 110.87 |
-> C | 1.33 | 2,856 | 2249 | 5.28 |
+    > source | secs | mem | gz | cpu |
+    > -------|------|-----|----|-----|
+    > Go | 1.98 | 3,044 | 1344 | 5.65 |
+    > Python3 | 110.91 | 8,024 | 977 | 110.87 |
+    > C | 1.33 | 2,856 | 2249 | 5.28 |
 
-- Reference (<a href="http://benchmarksgame.alioth.debian.org/u64q/compare.php?lang=go&lang2=python3" target="blank">Benchmark Game</a>) 
+    > * Reference (<a href="http://benchmarksgame.alioth.debian.org/u64q/compare.php?lang=go&lang2=python3" target="blank">Benchmark Game</a>) 
