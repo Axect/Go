@@ -112,6 +112,9 @@
     > Java | 2.13 | 36,036 | 2457 | 5.66	
     >
     > -Reference (<a href="http://benchmarksgame.alioth.debian.org/u64q/compare.php?lang=go&lang2=python3" target="blank">Benchmark Game</a>)
+    > 
+     **-Speed**: C > C++ > Go > Java >> Python  
+     -And see Memory
 
 4. Concurrency (!= Parallelism)
 
