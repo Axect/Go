@@ -56,4 +56,34 @@ Jun 2017 | Jun 2016 | Change | Programming Language | Ratings | Change
 
 ### - Additional References
 
-<a href="https://insights.stackoverflow.com/survey/2016#technology-most-loved-dreaded-and-wanted" target="blank">Most Loved and Dreaded Languages of Programmers 2017</a>
+> <a href="https://insights.stackoverflow.com/survey/2016#technology-most-loved-dreaded-and-wanted" target="blank">Most Loved and Dreaded Languages of Programmers 2017</a>
+
+## 3. Advantages of Go
+
+1. Simple
+    > **- Example Code**
+    > - C (Hello World)
+    > ```C
+    > #include<stdio.h>
+    > int main(int argc, char * argv[])
+    > {
+    >  printf("Hello World!\n");
+    >  return 0;
+    > }
+    >```
+    >
+    > - Python (Hello World)
+    > ```Python
+    > print("Hello World!\n")
+    > ```
+    > - Go (Hello World)
+    > ```Go
+    > package main
+    > 
+    > import "fmt"
+    >
+    > func main() {
+    >   fmt.Println("Hello World!\n")    
+    >}
+    >```
+     -Simplicity : Python > Go >> C >> Java
