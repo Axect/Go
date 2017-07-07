@@ -15,7 +15,7 @@ var vector [l1]int
 
 func main() {
 	array[3] = 4
-	fmt.Println(array)
+	fmt.Println(&array)
 	fmt.Println(matrix)
 	for i, group := range matrix {
 		vector[i] = group[0]
