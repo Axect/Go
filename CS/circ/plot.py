@@ -17,9 +17,9 @@ for group in List2:
     Q.append(float(group[1]))
 
 plt.figure(figsize=(10,10), dpi=600)
-plt.plot(X, Y)
+plt.plot(X, Y, label='Circle')
 plt.plot(X, Z)
-plt.plot(P, Q)
+plt.plot(P, Q, label='Tangent')
 plt.title("Circle Plot")
 plt.xlabel('X')
 plt.ylabel('Y')
