@@ -36,5 +36,5 @@ func main() {
 		q := []string{temp, temp2}
 		Y[i] = q
 	}
-	csv.Write(Y, "test")
+	csv.Write(Y, "Data/test")
 }
