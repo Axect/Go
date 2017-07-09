@@ -9,10 +9,10 @@ for group in List:
     Y.append(float(group[1]))
     Z.append(float(group[2]))
 
-plt.figure(dpi=600)
+plt.figure(figsize=(10,10), dpi=600)
 plt.plot(X, Y)
 plt.plot(X, Z)
-plt.title("Circ Plot")
+plt.title("Circle Plot")
 plt.xlabel('X')
 plt.ylabel('Y')
 plt.savefig('Fig/Circ.png')
