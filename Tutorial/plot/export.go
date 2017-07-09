@@ -19,7 +19,7 @@ func MakeSeq() *[100]float64 {
 }
 
 func main() {
-	seq := MakeSeq()
+	seq := MakeSeq() // return Pointer of original array
 	Y := make([][]string, 100, 100)
 	for i, elem := range seq {
 		temp := fmt.Sprint(elem)
