@@ -9,10 +9,18 @@ for group in List:
     Y.append(float(group[1]))
     Z.append(float(group[2]))
 
+temp2 = open("Data/Tan.csv")
+List2 = [line.split(',') for line in temp2]
+P, Q = [], []
+for group in List2:
+    P.append(float(group[0]))
+    Q.append(float(group[1]))
+
 plt.figure(figsize=(10,10), dpi=600)
 plt.plot(X, Y)
 plt.plot(X, Z)
+plt.plot(P, Q)
 plt.title("Circle Plot")
 plt.xlabel('X')
 plt.ylabel('Y')
-plt.savefig('Fig/Circ.png')
+plt.savefig('Fig/CircTan.png')
