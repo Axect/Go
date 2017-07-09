@@ -9,7 +9,7 @@ import (
 
 // Write writes csv file
 func Write(List [][]string, name string) {
-	Title := name + ".csv"
+	Title := name
 	file, err := os.Create(Title)
 	checkError("Cannot create a file", err)
 	defer file.Close()
