@@ -7,8 +7,8 @@ import (
 )
 
 // MakeSeqPointer makes 1e+06 List Pointer
-func MakeSeqPointer() *[1e+6]int {
-	var seq [1e+6]int
+func MakeSeqPointer() *[1e+8]int {
+	var seq [1e+8]int
 	Seq := &seq
 	for i := range Seq {
 		Seq[i] = i + 1
@@ -18,7 +18,7 @@ func MakeSeqPointer() *[1e+6]int {
 
 // MakeSeq makes 1e+06 Slice
 func MakeSeq() []float64 {
-	seq := make([]float64, 1e+6, 1e+6)
+	seq := make([]float64, 1e+8, 1e+8)
 	for i := range seq {
 		seq[i] = float64(i + 1)
 	}
@@ -26,7 +26,7 @@ func MakeSeq() []float64 {
 }
 
 //SummingPointer is sum sequence (pointer) return time
-func SummingPointer(seq *[1e+6]int) (int, time.Duration) {
+func SummingPointer(seq *[1e+8]int) (int, time.Duration) {
 	s := 0
 	start := time.Now()
 	for _, elem := range seq {
