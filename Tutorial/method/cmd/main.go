@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/Axect/Go/Tutorial/method"
 )
@@ -11,6 +12,8 @@ func main() {
 		Name:    "Axect",
 		Account: 1,
 	}
+	start := time.Now()
 	A.Add()
-	fmt.Println(A.Account)
+	elapsed := time.Since(start)
+	fmt.Println(A.Account, elapsed)
 }
