@@ -21,15 +21,15 @@ func Harmonic() string {
 		os.Exit(1)
 	}
 	m := float64(n) + 0.5
-	repr := fmt.Sprint(m+1/2) + "h"
+	repr := fmt.Sprint(m+1/2) + "hbar"
 	return repr
 }
 
-// Converter converts string expr to float
-func Converter(h string) float64 {
+// Converter converts string expr to float and finally Sprint
+func Converter(h string) string {
 	hl := len(h)
-	h = h[:hl-1]
+	h = h[:hl-4]
 	r, _ := strconv.ParseFloat(h, 64)
 	r = r * hReal
-	return r
+	return fmt.Sprintf("%veV", r)
 }
