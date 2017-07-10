@@ -8,7 +8,10 @@ type Person struct {
 
 // Add is sample mathod (Pointer Receiver - It can change value)
 func (a *Person) Add() {
-	for i := 1; i <= 1e+06; i++ {
-		a.Account++
-	}
+	a.Account++
+}
+
+// Subtract is sample method
+func (a *Person) Subtract() {
+	a.Account--
 }
