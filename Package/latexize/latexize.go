@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-// Powize makes TeX code to Go Code
+// Powize makes TeX code ^ to Go Code math.Pow()
 func Powize(n string) string {
 	Tempt := n
 	if strings.Contains(n, "^") {
