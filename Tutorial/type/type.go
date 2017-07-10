@@ -25,5 +25,5 @@ var tom = admin{
 }
 
 func main() {
-	fmt.Println(tom.person)
+	fmt.Println(tom.person.name)
 }
