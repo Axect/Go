@@ -6,7 +6,7 @@ import (
 	"github.com/gonum/floats"
 )
 
-// MakeSeqPointer makes 1e+06 List Pointer
+// MakeSeqPointer makes 1e+08 List Pointer
 func MakeSeqPointer() *[1e+8]int {
 	var seq [1e+8]int
 	Seq := &seq
@@ -16,7 +16,7 @@ func MakeSeqPointer() *[1e+8]int {
 	return &seq
 }
 
-// MakeSeq makes 1e+06 Slice
+// MakeSeq makes 1e+08 Slice
 func MakeSeq() []float64 {
 	seq := make([]float64, 1e+8, 1e+8)
 	for i := range seq {
