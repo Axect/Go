@@ -15,6 +15,7 @@ const (
 func Harmonic() string {
 	var n int
 	fmt.Print("Input n:")
+	// Generates error to scan not int value or negative
 	if _, err := fmt.Scanln(&n); err != nil || n < 0 {
 		fmt.Println("Error: Integer n should be positive or zero")
 		os.Exit(1)
