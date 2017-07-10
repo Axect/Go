@@ -15,9 +15,8 @@ const (
 func Harmonic() string {
 	var n int
 	fmt.Print("Input n:")
-	fmt.Scanln(&n)
-	if n < 0 {
-		fmt.Println("Error: n should be positive or zero")
+	if _, err := fmt.Scanln(&n); err != nil || n < 0 {
+		fmt.Println("Error: Integer n should be positive or zero")
 		os.Exit(1)
 	}
 	m := float64(n) + 0.5
