@@ -6,19 +6,21 @@ import (
 	"github.com/gonum/floats"
 )
 
-// MakeSeqPointer makes 1e+08 List Pointer
-func MakeSeqPointer() *[1e+8]int {
-	var seq [1e+8]int
+// MakeSeqPointer makes 1e+06 List Pointer
+func MakeSeqPointer() (*[1e+6]int, time.Duration) {
+	start := time.Now()
+	var seq [1e+6]int
 	Seq := &seq
 	for i := range Seq {
 		Seq[i] = i + 1
 	}
-	return &seq
+	elapsed := time.Since(start)
+	return &seq, elapsed
 }
 
-// MakeSeq makes 1e+08 Slice
+// MakeSeq makes 1e+06 Slice
 func MakeSeq() []float64 {
-	seq := make([]float64, 1e+8, 1e+8)
+	seq := make([]float64, 1e+6, 1e+6)
 	for i := range seq {
 		seq[i] = float64(i + 1)
 	}
@@ -26,7 +28,7 @@ func MakeSeq() []float64 {
 }
 
 //SummingPointer is sum sequence (pointer) return time
-func SummingPointer(seq *[1e+8]int) (int, time.Duration) {
+func SummingPointer(seq *[1e+6]int) (int, time.Duration) {
 	s := 0
 	start := time.Now()
 	for _, elem := range seq {

@@ -10,7 +10,7 @@ func main() {
 	A := sum.MakeSeq()
 	resultA, timeA := sum.SummingList(A) // type(timeA) = time.Duration
 
-	B := sum.MakeSeqPointer()
+	B, T := sum.MakeSeqPointer()
 	resultB, timeB := sum.SummingPointer(B)
 
 	n := 0
@@ -25,8 +25,9 @@ func main() {
 	NewtimeA := timeA / 10
 	NewtimeB := timeB / 10
 
+	fmt.Println("Time of Make Array: ", T)
 	fmt.Println("-Sum Module")
 	fmt.Printf("Results: %v, Elapsed Time: %v (mean for %v times)\n", resultA, NewtimeA, n)
 	fmt.Println("-Sum Pointer")
-	fmt.Printf("Results: %v, Elapsed Time: %v (mean for %v times)", resultB, NewtimeB, n)
+	fmt.Printf("Results: %v, Elapsed Time: %v (mean for %v times)\n", resultB, NewtimeB, n)
 }
