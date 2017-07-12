@@ -10,7 +10,7 @@ const h = 1e-06
 // Normal type is for convenience
 type Normal func(float64) float64
 
-// Diff differentialte function
+// Diff differentiate function
 func Diff(f Normal, x float64) float64 {
 	return (f(x+h) - f(x-h)) / (2 * h)
 }
