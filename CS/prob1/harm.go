@@ -21,7 +21,7 @@ func Harmonic() string {
 		os.Exit(1)
 	}
 	m := float64(n) + 0.5
-	repr := fmt.Sprint(m+1/2) + "hbar"
+	repr := fmt.Sprint(m) + "hbar"
 	return repr
 }
 
