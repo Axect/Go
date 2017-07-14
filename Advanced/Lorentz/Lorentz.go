@@ -15,44 +15,57 @@ type ContraVector struct {
 // CoVector is Covariant Vector
 type CoVector ContraVector
 
-// Converter is CO -> Contra
-func Converter(A CoVector) ContraVector {
-	var B ContraVector
-	B.t = A.t
-	B.x = A.x
-	B.y = A.y
-	B.z = A.z
-	return B
+// Metric is Metric Tensor
+type Metric struct {
+	diag [4]float64
+}
+
+// g is a metric tensor which for flat space.
+var g = Metric{
+	diag: [4]float64{1., -1., -1., -1.},
 }
 
 // Raising is Co -> Contra
-func (B *CoVector) Raising() {
-	B.x = -B.x
-	B.y = -B.y
-	B.z = -B.z
+func (B CoVector) Raising() ContraVector {
+	var C ContraVector
+	C.t, C.x, C.y, C.z = g.diag[0]*B.t, g.diag[1]*B.x, g.diag[2]*B.y, g.diag[3]*B.z
+	return C
+}
+
+// Lowering is Contra -> Co
+func (B ContraVector) Lowering() CoVector {
+	var C CoVector
+	C.t, C.x, C.y, C.z = g.diag[0]*B.t, g.diag[1]*B.x, g.diag[2]*B.y, g.diag[3]*B.z
+	return C
 }
 
 // Contraction is contraction
 func Contraction(A ContraVector, B CoVector) float64 {
-	g := []float64{1, -1, -1, -1}
-	return g[0]*A.t*B.t + g[1]*A.x*B.x + g[2]*A.y*B.y + g[3]*A.z*B.z
+	return A.t*B.t + A.x*B.x + A.y*B.y + A.z*B.z
 }
 
 func main() {
+	var a, b, c, d float64
+	var p, q, r, s float64
+	fmt.Print("Please Input 4-Components of Contravariant Vector: ")
+	fmt.Scan(&a, &b, &c, &d)
 	A := ContraVector{
-		t: 1,
-		x: 1,
-		y: 2,
-		z: 3,
+		t: a,
+		x: b,
+		y: c,
+		z: d,
 	}
+	fmt.Print("Please Input 4-Components of Covariant Vector: ")
+	fmt.Scan(&p, &q, &r, &s)
 	B := CoVector{
-		t: 2,
-		x: 0,
-		y: 5,
-		z: 6,
+		t: p,
+		x: q,
+		y: r,
+		z: s,
 	}
-	C := Contraction(A, B)
-	fmt.Println(C)
-	B.Raising()
-	fmt.Println(B)
+	S := Contraction(A, B)
+	C := B.Raising()
+	D := A.Lowering()
+	E := Contraction(C, D)
+	fmt.Println(S, E)
 }
