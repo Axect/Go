@@ -3,6 +3,7 @@ package prob2
 import (
 	"fmt"
 	"math/rand"
+	"os"
 	"time"
 )
 
@@ -39,12 +40,27 @@ func (s *Score) Judge(x, y int) {
 	}
 }
 
+// Contains check contain
+func Contains(x string, A []string) bool {
+	for _, elem := range A {
+		if x == elem {
+			return true
+		}
+	}
+	return false
+}
+
 // Play is method for Score
 func (s *Score) Play(n int) {
 	for i := 0; i < n; i++ {
 		fmt.Println("가위, 바위, 보를 시작합니다. 가위, 바위, 보!")
 		var player string
-		fmt.Scan(&player)
+		_, err := fmt.Scan(&player)
+		temp := []string{"가위", "바위", "보"}
+		if err != nil || !Contains(player, temp) {
+			fmt.Println("똑바로 입력하세요.")
+			os.Exit(1)
+		}
 		enemy := AI()
 		s.Judge(RSP[player], RSP[enemy])
 	}
