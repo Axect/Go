@@ -2,6 +2,7 @@ package prob2
 
 import (
 	"fmt"
+	"math"
 	"sort"
 )
 
@@ -23,6 +24,12 @@ func (p PhysicsTest) String() string {
 // PhysicsList : Let's type to list
 type PhysicsList []PhysicsTest
 
+// NewContainer contains rank
+type NewContainer struct {
+	Inform PhysicsTest
+	Rank   int
+}
+
 // =============================================================================
 // Methods for Physics List
 // =============================================================================
@@ -40,10 +47,15 @@ func (p PhysicsList) Mean() float64 {
 	return float64(s) / float64(l)
 }
 
-// NewContainer contains rank
-type NewContainer struct {
-	Inform PhysicsTest
-	Rank   int
+// Std is std
+func (p PhysicsList) Std() float64 {
+	s := float64(0)
+	l := p.Len()
+	m := p.Mean()
+	for _, elem := range p {
+		s += math.Pow(float64(elem.Score)-m, 2)
+	}
+	return math.Sqrt(s / float64(l))
 }
 
 // =============================================================================
@@ -94,7 +106,7 @@ func DoSort() {
 		{"Planck", 52},
 	}
 	sort.Sort(sort.Reverse(A))
-	Result := Rank(A)
-	fmt.Println(Result)
-	fmt.Println(A.Mean())
+	//Result := Rank(A)
+	fmt.Printf("Average: %f\n", A.Mean())
+	fmt.Printf("Std: %f\n ", A.Std())
 }
