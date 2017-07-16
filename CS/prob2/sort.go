@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"math"
 	"sort"
+	"strconv"
+
+	"github.com/Axect/Go/Package/csv"
 )
 
 // =============================================================================
@@ -76,8 +79,22 @@ func Rank(SortedArray PhysicsList) []NewContainer {
 	length := SortedArray.Len()
 	Temp := make([]NewContainer, length, length)
 	for i := range SortedArray {
-		Temp[i].AssignRank(i + 1)
+		if i > 0 && SortedArray[i].Score == SortedArray[i-1].Score {
+			Temp[i].AssignRank(int(Temp[i-1].Rank))
+		} else {
+			Temp[i].AssignRank(int(i + 1))
+		}
 		Temp[i].AssignInform(SortedArray[i])
+	}
+	return Temp
+}
+
+// ConvertString converts string list
+func ConvertString(C []NewContainer) [][]string {
+	length := len(C)
+	Temp := make([][]string, length, length)
+	for i, elem := range C {
+		Temp[i] = []string{fmt.Sprint(elem.Inform.Name), fmt.Sprint(elem.Inform.Score), fmt.Sprint(elem.Rank)}
 	}
 	return Temp
 }
@@ -105,8 +122,24 @@ func DoSort() {
 		{"Leibniz", 93},
 		{"Planck", 52},
 	}
+	// Sorting
 	sort.Sort(sort.Reverse(A))
-	//Result := Rank(A)
+	// Statistic
 	fmt.Printf("Average: %f\n", A.Mean())
 	fmt.Printf("Std: %f\n ", A.Std())
+	// Add Rank
+	Result := Rank(A)
+	// Write CSV
+	Data := ConvertString(Result)
+	csv.Write(Data, "../Data/physics.csv")
+	// Read CSV
+	List := csv.Read("../Data/physics.csv")
+	Physicsists := make([]string, len(List), len(List))
+	Scores, Ranks := make([]int64, len(List), len(List)), make([]int64, len(List), len(List))
+	for i, group := range List {
+		Physicsists[i] = group[0]
+		Scores[i], _ = strconv.ParseInt(group[1], 0, 64)
+		Ranks[i], _ = strconv.ParseInt(group[2], 0, 64)
+	}
+	fmt.Println(Ranks)
 }

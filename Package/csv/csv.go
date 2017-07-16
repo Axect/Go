@@ -21,7 +21,18 @@ func Write(List [][]string, name string) {
 		err := writer.Write(value)
 		checkError("Cannot write to file", err)
 	}
-	fmt.Print("Complete to Write")
+	fmt.Println("Complete to Write")
+}
+
+// Read read csv file
+func Read(directory string) [][]string {
+	Title := directory
+	file, err := os.Open(Title)
+	checkError("Cannot open file", err)
+
+	reader := csv.NewReader(file)
+	rows, err := reader.ReadAll()
+	return rows
 }
 
 func checkError(message string, err error) {
