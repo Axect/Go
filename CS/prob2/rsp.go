@@ -5,6 +5,8 @@ import (
 	"math/rand"
 	"os"
 	"time"
+
+	"github.com/Axect/Go/Package/check"
 )
 
 // =============================================================================
@@ -40,16 +42,6 @@ func (s *Score) Judge(x, y int) {
 	}
 }
 
-// Contains check contain
-func Contains(x string, A []string) bool {
-	for _, elem := range A {
-		if x == elem {
-			return true
-		}
-	}
-	return false
-}
-
 // Play is method for Score
 func (s *Score) Play(n int) {
 	for i := 0; i < n; i++ {
@@ -57,7 +49,7 @@ func (s *Score) Play(n int) {
 		var player string
 		_, err := fmt.Scan(&player)
 		temp := []string{"가위", "바위", "보"}
-		if err != nil || !Contains(player, temp) {
+		if err != nil || !check.Contains(player, temp) {
 			fmt.Println("똑바로 입력하세요.")
 			os.Exit(1)
 		}
