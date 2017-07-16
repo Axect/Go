@@ -58,7 +58,7 @@ func (p PhysicsList) Std() float64 {
 	for _, elem := range p {
 		s += math.Pow(float64(elem.Score)-m, 2)
 	}
-	return math.Sqrt(s / float64(l))
+	return math.Sqrt(s / (float64(l) - 1)) // -1 means sample
 }
 
 // =============================================================================
