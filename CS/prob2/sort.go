@@ -122,16 +122,21 @@ func DoSort() {
 		{"Leibniz", 93},
 		{"Planck", 52},
 	}
+
 	// Sorting
 	sort.Sort(sort.Reverse(A))
+
 	// Statistic
 	fmt.Printf("Average: %f\n", A.Mean())
 	fmt.Printf("Std: %f\n ", A.Std())
+
 	// Add Rank
 	Result := Rank(A)
+
 	// Write CSV
 	Data := ConvertString(Result)
 	csv.Write(Data, "../Data/physics.csv")
+
 	// Read CSV
 	List := csv.Read("../Data/physics.csv")
 	Physicsists := make([]string, len(List), len(List))
