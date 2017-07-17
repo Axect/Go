@@ -30,13 +30,7 @@ var Ref = map[int]int{
 func (d Date) Days() int {
 	s := 0
 	if d.year%4 == 0 {
-		if d.year%100 != 0 {
-			Ref[2] = 29
-			for i := 1; i < d.month; i++ {
-				s += Ref[i]
-			}
-			s += d.day
-		} else if d.year%400 == 0 {
+		if d.year%100 != 0 || d.year%400 == 0 {
 			Ref[2] = 29
 			for i := 1; i < d.month; i++ {
 				s += Ref[i]
@@ -61,14 +55,15 @@ func (d Date) Days() int {
 
 // DoCalendar generates calendar
 func DoCalendar() {
+	fmt.Println("---------------------------------------")
+	fmt.Println("Calendar")
+	fmt.Println("---------------------------------------")
 	d := Date{2017, 5, 31}
 	s := 0
-	q := Date{2016, 5, 31}
-	for i := 2010; i < d.year; i++ {
+	for i := 1; i < d.year; i++ {
 		x := Date{i, 12, 31}
 		s += x.Days()
 	}
 	s += d.Days()
-	fmt.Println(d.Days(), q.Days())
 	fmt.Println(s)
 }
