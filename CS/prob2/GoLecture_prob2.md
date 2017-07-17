@@ -293,3 +293,5 @@
     ```
     * Read is so simple : ```open & line.split by list comprehension```
     <img src="Fig/Distrib.png"></img>
+
+## 3. 
