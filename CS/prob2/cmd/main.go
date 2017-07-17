@@ -8,4 +8,5 @@ func main() {
 	prob2.DoRoll()
 	prob2.DoSort()
 	prob2.DoRSP()
+	prob2.DoCalendar()
 }
