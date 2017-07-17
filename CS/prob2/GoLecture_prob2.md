@@ -294,4 +294,95 @@
     * Read is so simple : ```open & line.split by list comprehension```
     <img src="Fig/Distrib.png"></img>
 
-## 3. 
+## 3. Rock, Scissors, Paper!
+
+1. Declare new type for play
+    ```Go
+    // Score is type for scoring
+    type Score struct {
+        player int
+        enemy  int
+        draw   int
+    }
+    ```
+<br>
+
+2. Make map for RSP
+    ```Go
+    // RSP for rsp
+    var RSP = map[string]int{
+        "가위": -1,
+        "바위": 0,
+        "보":  1,
+    }
+    ```
+    * Map of Go seems like "Dict" of Python : ```RSP["가위"] -> -1```
+
+<br>
+
+3. Make 'Judge' method for Score
+    ```Go
+    // Judge for Score
+    func (s *Score) Judge(x, y int) {
+        // At least one of them throw rock
+        if x*y == 0 {
+            if x > y {
+                s.player++
+            } else if x < y {
+                s.enemy++
+            } else {
+                s.draw++
+            }
+        } else if x*y < 0 { // one is scissors, another one is paper
+            if x < 0 {
+                s.player++
+            } else {
+                s.enemy++
+            }
+        } else {
+            s.draw++
+        }
+    }
+    ```
+    * ```if x*y == 0 ``` : at least one of them throw rock
+        * ```if x <  y``` : x = Rock & y = Paper or x = Scissors & y = Rock -> So, y wins
+    * ```else if x*y < 0``` : one = Scissors & another one = Paper
+        * ```if x < 0 ``` : x = scissors -> x Win!
+    * ```else``` : Both are paper -> Draw 
+<br>
+
+4. Make 'Play' method for Score (Scan integer n (number of play))
+    ```Go
+    // Play is method for Score
+    func (s *Score) Play(n int) {
+        for i := 0; i < n; i++ {
+            fmt.Println("가위, 바위, 보를 시작합니다. 가위, 바위, 보!")
+            var player string
+            _, err := fmt.Scan(&player)
+            temp := []string{"가위", "바위", "보"}
+            if err != nil || !check.Contains(player, temp) {
+                fmt.Println("똑바로 입력하세요.")
+                os.Exit(1)
+            }
+            enemy := AI()
+            s.Judge(RSP[player], RSP[enemy])
+        }
+    }
+    ```
+    * Scan should be scan pointer
+    * I made ```check.Contains``` which check list contains specific element.
+        ```Go
+        package check
+
+        // Contains check contain
+        func Contains(x string, A []string) bool {
+            for _, elem := range A {
+                if x == elem {
+                    return true
+                }
+            }
+            return false
+        }
+        ```
+        * ```!check.Contains(player, temp)``` : "```if player not in temp```" in python
+        
