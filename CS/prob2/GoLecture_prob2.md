@@ -545,3 +545,31 @@
         fmt.Printf("입력하신 날짜는 서기 %d일이며 %s입니다.\n", d.DayTotal(), DayFinder(d.DayTotal()))
     }
     ```
+<br>
+
+## 5. Total Main Function (In cmd folder)
+
+```Go
+package main
+
+import (
+	"runtime"
+	"sync"
+	"time"
+
+	"github.com/Axect/Go/CS/prob2"
+)
+
+var wg sync.WaitGroup
+
+func main() {
+	runtime.GOMAXPROCS(4)
+	go prob2.DoRoll()
+	go prob2.DoSort()
+	time.Sleep(100 * time.Millisecond)
+	prob2.DoRSP()
+	prob2.DoCalendar()
+}
+```
+* ```runtime.GOMAXPROCS(4)``` : Use 4 cores
+* ```go``` : Concurrent running

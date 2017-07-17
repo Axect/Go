@@ -2,13 +2,10 @@ package main
 
 import (
 	"runtime"
-	"sync"
 	"time"
 
 	"github.com/Axect/Go/CS/prob2"
 )
-
-var wg sync.WaitGroup
 
 func main() {
 	runtime.GOMAXPROCS(4)
