@@ -27,14 +27,13 @@ const (
 	M     = 1.9891e+30        // Sun mass
 	AU    = 1.49597870691e+11 // Astronomy Unit
 	tstep = 43200             // Time Step
-	N     = 730 * 5
+	N     = 730 * 10
 )
 
 var Initial = Coordinate{-9.851920196143998e-01 * AU, 1.316466809434336e-01 * AU, -4.877392224782687e-06 * AU}
 var Initial2 = Coordinate{-9.864337701483683e-01 * AU, 1.230799243164879e-01 * AU, -4.374019384763304e-06 * AU}
 
 var TestArray [2][N + 1]float64
-var WriteArray [][]string
 
 var CList [N + 1]Coordinate
 var TList [N + 1]float64
@@ -170,8 +169,8 @@ func NIntegration() (Coordinate, Velocity, Acceleration, float64) {
 }
 
 // Verlet is numerical integration algorithm for MD
-func Verlet() ([N + 1]Coordinate, [N + 1]float64) {
-	C := Initial
+func Verlet(I Coordinate) ([N + 1]Coordinate, [N + 1]float64) {
+	C := I
 	T := 0.
 	var V Velocity
 	TL := &TList
@@ -199,18 +198,23 @@ func Verlet() ([N + 1]Coordinate, [N + 1]float64) {
 }
 
 func Test() {
-	WriteArray = make([][]string, N+1, N+1)
+	WriteArray := make([][]string, N+1, N+1)
+	WriteArrayE := make([][]string, N+1, N+1)
 	start := time.Now()
 	//X, V, A, T := NIntegration()
-	C, T := Verlet()
+	C, T := Verlet(Initial)
 	E := Calc(C)
 	elapsed := time.Since(start)
 	for i := range C {
-		WriteArray[i] = []string{fmt.Sprint(E[i]), fmt.Sprint(T[i])}
+		WriteArray[i] = []string{fmt.Sprint(C[i].x / AU), fmt.Sprint(T[i])}
+		WriteArrayE[i] = []string{fmt.Sprint(E[i]), fmt.Sprint(T[i])}
 	}
+	//for i := range C {
+	//	WriteArray[i] = []string{fmt.Sprint(E[i]), fmt.Sprint(T[i])}
+	//}
 	//csv.Write(WriteArray, "../Data/test_taylor.csv")
-	//csv.Write(WriteArray, "../Data/X_Ver.csv")
-	csv.Write(WriteArray, "../Data/Energy.csv")
+	csv.Write(WriteArray, "../Data/X_Ver.csv")
+	csv.Write(WriteArrayE, "../Data/Energy.csv")
 	//fmt.Printf("%v,\n %v,\n %v,\n %v,\n", X, V, A, T)
 	fmt.Println("time is ", elapsed)
 }
