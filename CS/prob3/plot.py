@@ -9,7 +9,8 @@ import seaborn
 # Receive Sequence
 # ==============================================================================
 
-temp = open("Data/test.csv")
+#temp = open("Data/test_taylor.csv")
+temp = open("Data/X_ver.csv")
 List = [line.split(',') for line in temp]
 X, T = [], []
 for group in List:
@@ -26,4 +27,4 @@ plt.title("Orbit")
 plt.xlabel('Time')
 plt.ylabel('X')
 plt.legend()
-plt.savefig('Fig/X.png')
+plt.savefig('Fig/X_Verlet.png')

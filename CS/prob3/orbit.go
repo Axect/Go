@@ -27,7 +27,7 @@ const (
 	M     = 1.9891e+30        // Sun mass
 	AU    = 1.49597870691e+11 // Astronomy Unit
 	tstep = 43200             // Time Step
-	N     = 730 * 10
+	N     = 730 * 5
 )
 
 var Initial = Coordinate{-9.851920196143998e-01 * AU, 1.316466809434336e-01 * AU, -4.877392224782687e-06 * AU}
@@ -35,6 +35,9 @@ var Initial2 = Coordinate{-9.864337701483683e-01 * AU, 1.230799243164879e-01 * A
 
 var TestArray [2][N + 1]float64
 var WriteArray [][]string
+
+var CList [N + 1]Coordinate
+var TList [N + 1]float64
 
 func (C Coordinate) String() string {
 	return fmt.Sprintf("x:%v, y:%v, z:%v", C.x/AU, C.y/AU, C.z/AU)
@@ -58,6 +61,14 @@ func (C *Coordinate) Div(t float64) {
 	C.z = C.z / t
 }
 
+func (C Coordinate) Mul(t float64) Coordinate {
+	var D Coordinate
+	D.x = C.x * t
+	D.y = C.y * t
+	D.z = C.z * t
+	return D
+}
+
 func (V *Velocity) CalcVel(C, D Coordinate) {
 	C.Sub(D)     // C - D
 	C.Div(tstep) // C / tstep
@@ -72,6 +83,14 @@ func (V Velocity) String() string {
 
 func (A Acceleration) String() string {
 	return fmt.Sprintf("x:%v, y:%v, z:%v", A.x/AU, A.y/AU, A.z/AU)
+}
+
+func (A Acceleration) Mul(t float64) Acceleration {
+	var B Acceleration
+	B.x = A.x * t
+	B.y = A.y * t
+	B.z = A.z * t
+	return B
 }
 
 // RunCoord runs Coordinate
@@ -101,7 +120,7 @@ func (A *Acceleration) CalcAccel(C Coordinate) {
 	A.z = ac * C.z
 }
 
-// NIntegration do numercal integration
+// NIntegration do numercal integration (Euler Method)
 func NIntegration() (Coordinate, Velocity, Acceleration, float64) {
 	X := Initial
 	T := 0.
@@ -127,15 +146,46 @@ func NIntegration() (Coordinate, Velocity, Acceleration, float64) {
 	return X, V, A, T / 86400
 }
 
+// Verlet is numerical integration algorithm for MD
+func Verlet() ([N + 1]Coordinate, [N + 1]float64) {
+	C := Initial
+	T := 0.
+	var V Velocity
+	TL := &TList
+	CL := &CList
+	CL[0] = C
+	TL[0] = T
+	A := Acceleration{0, 0, 0}
+	V.CalcVel(Initial2, Initial)
+	C.RunCoord(V, A)
+	T += tstep
+	CL[1] = C
+	TL[1] = T / 86400
+	for i := 2; i <= N; i++ {
+		A.CalcAccel(CL[i-1])
+		temp := CList[i-1].Mul(2)               // 2*x_n
+		temp.Sub(CList[i-2])                    // 2*x_n - x_(n-1)
+		B := A.Mul(math.Pow(float64(tstep), 2)) // A*(h^2)
+		Temp := Coordinate{B.x, B.y, B.z}
+		temp.Add(Temp) // 2*x_n - x_(n-1) + A*h^2
+		CL[i] = temp
+		T += tstep
+		TL[i] = T / 86400
+	}
+	return CList, TList
+}
+
 func Test() {
 	WriteArray = make([][]string, N+1, N+1)
 	start := time.Now()
-	X, V, A, T := NIntegration()
+	//X, V, A, T := NIntegration()
+	C, T := Verlet()
 	elapsed := time.Since(start)
-	for i := range TestArray[0] {
-		WriteArray[i] = []string{fmt.Sprint(TestArray[0][i]), fmt.Sprint(TestArray[1][i])}
+	for i := range C {
+		WriteArray[i] = []string{fmt.Sprint(C[i].x / AU), fmt.Sprint(T[i])}
 	}
-	csv.Write(WriteArray, "../Data/test.csv")
-	fmt.Printf("%v,\n %v,\n %v,\n %v,\n", X, V, A, T)
+	//csv.Write(WriteArray, "../Data/test_taylor.csv")
+	csv.Write(WriteArray, "../Data/X_Ver.csv")
+	//fmt.Printf("%v,\n %v,\n %v,\n %v,\n", X, V, A, T)
 	fmt.Println("time is ", elapsed)
 }
