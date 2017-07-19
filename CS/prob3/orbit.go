@@ -38,6 +38,7 @@ var WriteArray [][]string
 
 var CList [N + 1]Coordinate
 var TList [N + 1]float64
+var EList [N + 1]float64
 
 func (C Coordinate) String() string {
 	return fmt.Sprintf("x:%v, y:%v, z:%v", C.x/AU, C.y/AU, C.z/AU)
@@ -103,6 +104,28 @@ func (C *Coordinate) RunCoord(V Velocity, A Acceleration) {
 func (C Coordinate) Norm() float64 {
 	n := math.Sqrt(math.Pow(C.x, 2) + math.Pow(C.y, 2) + math.Pow(C.z, 2))
 	return n
+}
+
+func (V Velocity) Norm() float64 {
+	n := math.Sqrt(math.Pow(V.x, 2) + math.Pow(V.y, 2) + math.Pow(V.z, 2))
+	return n
+}
+
+func Calc(C [N + 1]Coordinate) [N + 1]float64 {
+	E := &EList
+	var V Velocity
+	V.CalcVel(Initial2, Initial)
+	E[0] = math.Pow(V.Norm(), 2)*m/2 - G*M*m/Initial.Norm()
+	for i, co := range C {
+		if i >= 1 {
+			temp := co.Mul(1.) // Generate new Coordinate
+			temp.Sub(C[i-1])   // C[i] - C[i-1]
+			temp.Div(tstep)    // (C[i] - C[i-1]) / tstep
+			n := math.Pow(temp.Norm(), 2)
+			E[i] = n*m/2 - G*M*m/co.Norm()
+		}
+	}
+	return EList
 }
 
 // RunVel runs VelocitY
@@ -180,12 +203,14 @@ func Test() {
 	start := time.Now()
 	//X, V, A, T := NIntegration()
 	C, T := Verlet()
+	E := Calc(C)
 	elapsed := time.Since(start)
 	for i := range C {
-		WriteArray[i] = []string{fmt.Sprint(C[i].x / AU), fmt.Sprint(T[i])}
+		WriteArray[i] = []string{fmt.Sprint(E[i]), fmt.Sprint(T[i])}
 	}
 	//csv.Write(WriteArray, "../Data/test_taylor.csv")
-	csv.Write(WriteArray, "../Data/X_Ver.csv")
+	//csv.Write(WriteArray, "../Data/X_Ver.csv")
+	csv.Write(WriteArray, "../Data/Energy.csv")
 	//fmt.Printf("%v,\n %v,\n %v,\n %v,\n", X, V, A, T)
 	fmt.Println("time is ", elapsed)
 }
