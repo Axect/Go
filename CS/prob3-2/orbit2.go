@@ -12,7 +12,7 @@ const (
 	M     = 1.9891e+30        // Sun mass
 	AU    = 1.49597870691e+11 // Astronomy Unit
 	tstep = 43200             // Time Step
-	N     = 730 * 10000
+	N     = 730 * 1000
 )
 
 var i = 0
