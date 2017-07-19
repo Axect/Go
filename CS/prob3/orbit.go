@@ -27,7 +27,7 @@ const (
 	M     = 1.9891e+30        // Sun mass
 	AU    = 1.49597870691e+11 // Astronomy Unit
 	tstep = 43200             // Time Step
-	N     = 730 * 2
+	N     = 730 * 10
 )
 
 var Initial = Coordinate{-9.851920196143998e-01 * AU, 1.316466809434336e-01 * AU, -4.877392224782687e-06 * AU}
