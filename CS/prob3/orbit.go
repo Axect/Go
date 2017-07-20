@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"math"
 	"time"
-
-	"github.com/Axect/Go/Package/csv"
 )
 
 const (
@@ -14,7 +12,7 @@ const (
 	M     = 1.9891e+30        // Sun mass
 	AU    = 1.49597870691e+11 // Astronomy Unit
 	tstep = 43200             // Time Step
-	N     = 730 * 10
+	N     = 730 * 10000
 )
 
 var i = 0
@@ -72,10 +70,10 @@ func Accel(coord Vector) Vector {
 	return a
 }
 
-func Taylor() VList {
+func Taylor(v1, v2 Vector) VList {
 	var c, v, a Vector
 	var C VList
-	i1, i2 := Initialize()
+	i1, i2 := v1, v2
 	v0 := (AS(i2, i1, false)).Mul(1. / tstep)
 	c, v = i1, v0
 	C.Assign(c)
@@ -90,6 +88,11 @@ func Taylor() VList {
 	return C
 }
 
+func Reversize(V VList) (Vector, Vector) {
+	f1, f2 := V.R[N], V.R[N-1]
+	return f1, f2
+}
+
 func Convert(V VList) [][]string {
 	W := make([][]string, N+1, N+1)
 	for j := 0; j <= N; j++ {
@@ -100,9 +103,14 @@ func Convert(V VList) [][]string {
 
 func DoOrbit() {
 	start := time.Now()
-	C := Taylor()
+	C := Taylor(Initialize())
+	i = 0
+	D := Taylor(Reversize(C))
+	ERR := AS(D.R[N], C.R[0], false)
 	elapsed := time.Since(start)
-	fmt.Println(i, elapsed)
-	W := Convert(C)
-	csv.Write(W, "Data/taylor.csv")
+	fmt.Println(i, elapsed, ERR.Mul(1./AU))
+	//W1 := Convert(C)
+	//W2 := Convert(D)
+	//csv.Write(W1, "Data/taylor.csv")
+	//csv.Write(W2, "Data/reverse.csv")
 }
