@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"math"
 	"time"
+
+	"github.com/Axect/Go/Package/csv"
 )
 
 const (
@@ -67,22 +69,45 @@ func Accel(coord Vector) Vector {
 	return a
 }
 
-func Taylor(v1, v2 Vector) VList {
-	var c, v, a Vector
+func En(c, v Vector) (float64, float64) {
+	n, _ := c.NormPow()
+	_, p := v.NormPow()
+	T := 1. / 2. * m * p
+	U := (-1. * G * M * m) / n
+	return T, U
+}
+
+func Taylor(v1, v2 Vector) (VList, [N + 1]float64, [N + 1]float64) {
+	var c, v, a, NULL Vector
 	var C VList
+	var T, U [N + 1]float64
+	t, u := &T, &U
 	i1, i2 := v1, v2
 	v0 := (AS(i2, i1, false)).Mul(1. / tstep)
 	c, v = i1, v0
 	C.Assign(c, 0)
+	_, u[0] = En(c, NULL)
 	c = AS(c, v.Mul(tstep), true)
 	C.Assign(c, 1)
+	_, u[1] = En(c, NULL)
 	for i := 2; i <= N; i++ {
 		a = Accel(c)
+		vf := v
 		v = AS(v, a.Mul(tstep), true)
+		vm := AS(v, vf, true)
+		if i == 2 {
+			vd := AS(vm.Mul(0.5), vf, false)
+			t[0], _ = En(NULL, AS(vf, vd, false))
+		}
+		if i == N {
+			vd := AS(v, vm.Mul(0.5), false)
+			t[N], _ = En(NULL, AS(v, vd, true))
+		}
 		c = AS(c, v.Mul(tstep), true)
 		C.Assign(c, i)
+		t[i-1], u[i] = En(c, vm.Mul(0.5))
 	}
-	return C
+	return C, T, U
 }
 
 func Reversize(V VList) (Vector, Vector) {
@@ -98,15 +123,27 @@ func Convert(V VList) [][]string {
 	return W
 }
 
+func ConvertF(F, G [N + 1]float64) [][]string {
+	W := make([][]string, N+1, N+1)
+	for j := 0; j <= N; j++ {
+		W[j] = []string{fmt.Sprint(F[j]), fmt.Sprint(G[j])}
+	}
+	return W
+}
+
 func DoOrbit() {
 	start := time.Now()
-	C := Taylor(Initialize())
-	D := Taylor(Reversize(C))
+	C, T1, U1 := Taylor(Initialize())
+	D, T2, U2 := Taylor(Reversize(C))
 	ERR := AS(D.R[N], C.R[0], false)
 	elapsed := time.Since(start)
 	fmt.Printf(" Number of years: %v\n Elapsed Time: %v\n Errors of Coordinates(AU): %v\n", N/730, elapsed, ERR.Mul(1./AU))
-	//W1 := Convert(C)
-	//W2 := Convert(D)
-	//csv.Write(W1, "Data/taylor.csv")
-	//csv.Write(W2, "Data/reverse.csv")
+	W1 := Convert(C)
+	W2 := Convert(D)
+	W3 := ConvertF(T1, U1)
+	W4 := ConvertF(T2, U2)
+	csv.Write(W1, "Data/taylor.csv")
+	csv.Write(W2, "Data/reverse.csv")
+	csv.Write(W3, "Data/energy.csv")
+	csv.Write(W4, "Data/energy_rev.csv")
 }
