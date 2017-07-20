@@ -12,10 +12,8 @@ const (
 	M     = 1.9891e+30        // Sun mass
 	AU    = 1.49597870691e+11 // Astronomy Unit
 	tstep = 43200             // Time Step
-	N     = 730 * 10000
+	N     = 730 * 10
 )
-
-var i = 0
 
 func Initialize() (Vector, Vector) {
 	A := Vector{-9.851920196143998e-01 * AU, 1.316466809434336e-01 * AU, -4.877392224782687e-06 * AU}
@@ -51,9 +49,8 @@ func (v Vector) Mul(f float64) Vector {
 	return q
 }
 
-func (V *VList) Assign(v Vector) {
+func (V *VList) Assign(v Vector, i int) {
 	V.R[i] = v
-	i++ //Role of Generator
 }
 
 func (v Vector) NormPow() (float64, float64) {
@@ -76,14 +73,14 @@ func Taylor(v1, v2 Vector) VList {
 	i1, i2 := v1, v2
 	v0 := (AS(i2, i1, false)).Mul(1. / tstep)
 	c, v = i1, v0
-	C.Assign(c)
+	C.Assign(c, 0)
 	c = AS(c, v.Mul(tstep), true)
-	C.Assign(c)
-	for i <= N {
+	C.Assign(c, 1)
+	for i := 2; i <= N; i++ {
 		a = Accel(c)
 		v = AS(v, a.Mul(tstep), true)
 		c = AS(c, v.Mul(tstep), true)
-		C.Assign(c)
+		C.Assign(c, i)
 	}
 	return C
 }
@@ -104,11 +101,10 @@ func Convert(V VList) [][]string {
 func DoOrbit() {
 	start := time.Now()
 	C := Taylor(Initialize())
-	i = 0
 	D := Taylor(Reversize(C))
 	ERR := AS(D.R[N], C.R[0], false)
 	elapsed := time.Since(start)
-	fmt.Println(i, elapsed, ERR.Mul(1./AU))
+	fmt.Printf(" Number of years: %v\n Elapsed Time: %v\n Errors of Coordinates(AU): %v\n", N/730, elapsed, ERR.Mul(1./AU))
 	//W1 := Convert(C)
 	//W2 := Convert(D)
 	//csv.Write(W1, "Data/taylor.csv")
