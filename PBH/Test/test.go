@@ -30,6 +30,8 @@ type RGE struct {
 
 type Container [Step]float64
 
+type Bay []Container
+
 type Action interface {
 	Initailize()
 	Running()
@@ -71,26 +73,31 @@ func (R *RGE) Running(mt, xi float64) {
 	R.t += h
 }
 
-func Convert(C1, C2, C3 Container) [][]string {
+func Convert(B Bay) [][]string {
+	l := len(B)
 	W := make([][]string, Step, Step)
-	for i := range C1 {
-		W[i] = []string{fmt.Sprint(C1[i]), fmt.Sprint(C2[i]), fmt.Sprint(C3[i])}
+	for i := range B[0] {
+		W[i] = []string{fmt.Sprint(B[0][i])}
+		for j := 1; j < l; j++ {
+			W[i] = append(W[i], fmt.Sprint(B[j][i]))
+		}
 	}
 	return W
 }
 
 func Run() {
 	var R RGE
-	var g1, g2, g3 Container
-	q1, q2, q3 := &g1, &g2, &g3
+	var lH, g1, g2, g3 Container
+	qH, q1, q2, q3 := &lH, &g1, &g2, &g3
 	mt, xi := 170.85, 50.
 	R.Initialize(mt, xi)
-	q1[0], q2[0], q3[0] = R.g1, R.g2, R.g3
+	qH[0], q1[0], q2[0], q3[0] = R.lH, R.g1, R.g2, R.g3
 	for i := 1; i < Step; i++ {
 		R.Running(mt, xi)
-		q1[i], q2[i], q3[i] = R.g1, R.g2, R.g3
+		qH[i], q1[i], q2[i], q3[i] = R.lH, R.g1, R.g2, R.g3
 	}
-	W := Convert(g1, g2, g3)
+	B := Bay{lH, g1, g2, g3}
+	W := Convert(B)
 	csv.Write(W, "Data/gauge.csv")
 }
 
