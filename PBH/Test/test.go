@@ -8,16 +8,25 @@ import (
 )
 
 const (
-	Mp       = 1.221 * 1E+19
-	MpR      = 2.4 * 1E+18 // Reduced Planck Mass
-	MW       = 80.385
-	MZ       = 91.1876
-	MH       = 125.09
+	// Mp = Plank Mass
+	Mp = 1.221 * 1E+19
+	// MpR = Reduced Planck Mass
+	MpR = 2.4 * 1E+18
+	// MW = Mass of W
+	MW = 80.385
+	// MZ = Mass of Z
+	MZ = 91.1876
+	// MH = Mass of Higgs
+	MH = 125.09
+	// alphasMZ = alphas(MZ)
 	alphasMZ = 0.1182
-	h        = 1e-04
-	Step     = 1e+04 * 44
+	// h = precision
+	h = 1e-04
+	// Step = Number of lists
+	Step = 1e+04 * 44
 )
 
+// RGE : To RGE Running
 type RGE struct {
 	t   float64
 	lH  float64
@@ -28,17 +37,22 @@ type RGE struct {
 	phi float64
 }
 
+// Container is container of coupling constants
 type Container [Step]float64
 
+// Bay is []container
 type Bay []Container
 
+// Action represents all methods
 type Action interface {
 	Initailize()
 	Running()
 }
 
+// Gamma for convenience
 type Gamma func(float64, float64) float64
 
+// Initialize is initialize by some constants
 func (R *RGE) Initialize(mt, xi float64) {
 	R.t = 0.
 	R.lH = 0.12604 + 0.00206*(MH-125.15) - 0.00004*(mt-173.34)
@@ -48,6 +62,7 @@ func (R *RGE) Initialize(mt, xi float64) {
 	R.g1 = 0.35830 + 0.00011*(mt-173.34) - 0.00020*(MW-80.384)/0.014
 }
 
+// Running is main action
 func (R *RGE) Running(mt, xi float64) {
 	hg := math.Sqrt(2.) / R.yt * mt * math.Exp(R.t)
 	R.phi = hg
@@ -83,6 +98,7 @@ func (R *RGE) Running(mt, xi float64) {
 	R.t += h
 }
 
+// Convert to write
 func Convert(B Bay) [][]string {
 	l := len(B)
 	W := make([][]string, Step, Step)
@@ -95,6 +111,7 @@ func Convert(B Bay) [][]string {
 	return W
 }
 
+// Run is main function
 func Run() {
 	var R RGE
 	var lH, g1, g2, g3 Container
@@ -111,6 +128,7 @@ func Run() {
 	csv.Write(W, "Data/gauge.csv")
 }
 
+// MakeBeta : Input gamma -> Output Beta function
 func MakeBeta(g float64) Gamma {
 	return func(f1, f2 float64) float64 {
 		temp := 1./(16*math.Pow(math.Pi, 2))*f1 + math.Pow(1./(16*math.Pow(math.Pi, 2)), 2)*f2
