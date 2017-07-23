@@ -51,18 +51,28 @@ func (R *RGE) Initialize(mt, xi float64) {
 func (R *RGE) Running(mt, xi float64) {
 	hg := math.Sqrt(2.) / R.yt * mt * math.Exp(R.t)
 	R.phi = hg
-	sh := (1 + xi*math.Pow(hg, 2)) / math.Pow(hg, 2) / (1 + (1+6*xi)*xi*math.Pow(hg, 2)/math.Pow(MpR, 2))
-	BlH1 := 6*(1+3*math.Pow(sh, 2))*math.Pow(R.lH, 2) + 12*R.lH*math.Pow(R.yt, 2) - 6*math.Pow(R.yt, 4) - 3*R.lH*(3*math.Pow(R.g2, 2)+math.Pow(R.g1, 2)) + 3/8*(2*math.Pow(R.g2, 4)+math.Pow((math.Pow(R.g1, 2)+math.Pow(R.g2, 2)), 2))
+	sh := (1 + xi*math.Pow(hg, 2)) / math.Pow(MpR, 2) / (1 + (1+6*xi)*xi*math.Pow(hg, 2)/math.Pow(MpR, 2))
+
+	// 1-loop Beta function
+	BlH1 := 6*(1+3*math.Pow(sh, 2))*math.Pow(R.lH, 2) + 12*R.lH*math.Pow(R.yt, 2) - 6*math.Pow(R.yt, 4) - 3*R.lH*(3*math.Pow(R.g2, 2)+math.Pow(R.g1, 2)) + 3./8*(2*math.Pow(R.g2, 4)+math.Pow((math.Pow(R.g1, 2)+math.Pow(R.g2, 2)), 2))
 	Bg11 := (81 + sh) / 12 * math.Pow(R.g1, 3)
 	Bg21 := -(39 - sh) / 12 * math.Pow(R.g2, 3)
 	Bg31 := -7 * math.Pow(R.g3, 3)
-	Byt1 := R.yt * ((23/6+2/3*sh)*math.Pow(R.yt, 2) - (8*math.Pow(R.g3, 2) + 9/4*math.Pow(R.g2, 2) + 17/12*math.Pow(R.g1, 2)))
-	gamma1 := -1 / (16 * math.Pow(math.Pi, 2)) * (9/4*math.Pow(R.g2, 2) + 3/4*math.Pow(R.g1, 2) - 3*math.Pow(R.yt, 2))
+	Byt1 := R.yt * ((23./6+2./3*sh)*math.Pow(R.yt, 2) - (8*math.Pow(R.g3, 2) + 9./4*math.Pow(R.g2, 2) + 17./12*math.Pow(R.g1, 2)))
+	gamma1 := -1. / (16 * math.Pow(math.Pi, 2)) * (9./4*math.Pow(R.g2, 2) + 3./4*math.Pow(R.g1, 2) - 3*math.Pow(R.yt, 2))
+
+	// 2-loop Beta function
+	BlH2 := 1./48*((912+3*sh)*math.Pow(R.g2, 6)-(290-sh)*math.Pow(R.g1, 2)*math.Pow(R.g2, 4)-(560-sh)*math.Pow(R.g1, 4)*math.Pow(R.g2, 2)-(380-sh)*math.Pow(R.g1, 6)) + (38-8*sh)*math.Pow(R.yt, 6) - math.Pow(R.yt, 4)*(8./3*math.Pow(R.g1, 2)+32*math.Pow(R.g3, 2)+(12-117*sh+108*math.Pow(sh, 2))*R.lH) + R.lH*(-1./8*(181+54*sh-162*math.Pow(sh, 2))*math.Pow(R.g2, 4)+1./4*(3-18*sh+54*math.Pow(sh, 2))*math.Pow(R.g1, 2)*math.Pow(R.g2, 2)+1./24*(90+377*sh+162*math.Pow(sh, 2))*math.Pow(R.g1, 4)+(27+54*sh+27*math.Pow(sh, 2))*math.Pow(R.g2, 2)*R.lH+(9+18*sh+9*math.Pow(sh, 2))*math.Pow(R.g1, 2)*R.lH-(48+288*sh-324*math.Pow(sh, 2)+624*math.Pow(sh, 3)-324*math.Pow(sh, 4))*math.Pow(R.lH, 2)) + math.Pow(R.yt, 2)*(-9./4*math.Pow(R.g2, 4)+21./2*math.Pow(R.g1, 2)*math.Pow(R.g2, 2)-19./4*math.Pow(R.g1, 4)+R.lH*(45./2*math.Pow(R.g2, 2)+85./6*math.Pow(R.g1, 2)+80*math.Pow(R.g3, 2)-(36+108*math.Pow(sh, 2))*R.lH))
+	Bg12 := 199./18*math.Pow(R.g1, 5) + 9./2*math.Pow(R.g1, 3)*math.Pow(R.g2, 2) + 44./3*math.Pow(R.g1, 3)*math.Pow(R.g3, 2) - 17./6*sh*math.Pow(R.g1, 3)*math.Pow(R.yt, 2)
+	Bg22 := 3./2*math.Pow(R.g1, 2)*math.Pow(R.g2, 3) + 35./6*math.Pow(R.g2, 5) + 12*math.Pow(R.g2, 3)*math.Pow(R.g3, 2) - 3./2*sh*math.Pow(R.g2, 3)*math.Pow(R.yt, 2)
+	Bg32 := 11./6*math.Pow(R.g1, 2)*math.Pow(R.g3, 3) + 9./2*math.Pow(R.g2, 2)*math.Pow(R.g3, 3) - 26*math.Pow(R.g3, 5) - 2*sh*math.Pow(R.g3, 3)*math.Pow(R.yt, 2)
+	Byt2 := R.yt * (-23./4*math.Pow(R.g2, 4) - 3./4*math.Pow(R.g1, 2)*math.Pow(R.g2, 2) + 1187./216*math.Pow(R.g1, 4) + 9*math.Pow(R.g2, 2)*math.Pow(R.g3, 2) + 19./9*math.Pow(R.g1, 2)*math.Pow(R.g3, 2) - 108*math.Pow(R.g3, 4) + (225./16*math.Pow(R.g2, 2)+131./16*math.Pow(R.g1, 2)+36*math.Pow(R.g3, 2))*sh*math.Pow(R.yt, 2) + 6*(-2*math.Pow(sh, 2)*math.Pow(R.yt, 4)-2*math.Pow(sh, 3)*math.Pow(R.yt, 2)*R.lH+math.Pow(sh, 2)*math.Pow(R.lH, 2)))
+	gamma2 := 1. / math.Pow(16*math.Pow(math.Pi, 2), 2) * (271./32*math.Pow(R.g2, 4) - 9./16*math.Pow(R.g1, 2)*math.Pow(R.g2, 2) - 431./96*sh*math.Pow(R.g1, 4) - 5./2*(9./4*math.Pow(R.g2, 2)+17./12*math.Pow(R.g1, 2)+8*math.Pow(R.g3, 2))*math.Pow(R.yt, 2) + 27./4*sh*math.Pow(R.yt, 4) - 6*math.Pow(sh, 3)*math.Pow(R.lH, 2))
 
 	//Calc Beta function
-	g := MakeBeta(gamma1)
-	Bg1, Bg2, Bg3 := g(Bg11, 0.), g(Bg21, 0.), g(Bg31, 0.)
-	BlH, Byt := g(BlH1, 0.), g(Byt1, 0.)
+	g := MakeBeta(gamma1 + gamma2)
+	Bg1, Bg2, Bg3 := g(Bg11, Bg12), g(Bg21, Bg22), g(Bg31, Bg32)
+	BlH, Byt := g(BlH1, BlH2), g(Byt1, Byt2)
 
 	// Real Running
 	R.lH += h * BlH
