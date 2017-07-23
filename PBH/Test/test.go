@@ -128,7 +128,7 @@ func Run(mt, xi float64, name string) {
 	start2 := time.Now()
 	B := Bay{lH, g1, g2, g3, yt}
 	W := Convert(B)
-	title := fmt.Sprintf("Data/%s", name)
+	title := fmt.Sprintf("./Data/%s", name)
 	csv.Write(W, title)
 	elapsed2 := time.Since(start2)
 	fmt.Printf("Running time is %v\nWriting time is %v\n", elapsed1, elapsed2)
