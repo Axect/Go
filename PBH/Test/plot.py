@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 
-temp = open("Data/gauge.csv", 'r')
+temp = open("Data/Gauge100.csv", 'r')
 List = [line.split(',') for line in temp]
 lH, g1, g2, g3, yt = np.empty(len(List)), np.empty(len(List)), np.empty(len(List)), np.empty(len(List)), np.empty(len(List))
 
@@ -25,4 +25,4 @@ plt.legend()
 plt.title("Running Gauge")
 plt.xlabel('t=ln(phi/MpR)')
 plt.ylabel('gauge')
-plt.savefig("Fig/Gauge.png")
+plt.savefig("Fig/Gauge100.png")

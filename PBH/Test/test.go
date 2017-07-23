@@ -3,6 +3,7 @@ package test
 import (
 	"fmt"
 	"math"
+	"time"
 
 	"github.com/Axect/Go/Package/csv"
 )
@@ -112,20 +113,25 @@ func Convert(B Bay) [][]string {
 }
 
 // Run is main function
-func Run() {
+func Run(mt, xi float64, name string) {
 	var R RGE
 	var lH, g1, g2, g3, yt Container
 	qH, q1, q2, q3, qt := &lH, &g1, &g2, &g3, &yt
-	mt, xi := 170.85, 50.
+	start := time.Now()
 	R.Initialize(mt, xi)
 	qH[0], q1[0], q2[0], q3[0], qt[0] = R.lH, R.g1, R.g2, R.g3, R.yt
 	for i := 1; i < Step; i++ {
 		R.Running(mt, xi)
 		qH[i], q1[i], q2[i], q3[i], qt[i] = R.lH, R.g1, R.g2, R.g3, R.yt
 	}
+	elapsed1 := time.Since(start)
+	start2 := time.Now()
 	B := Bay{lH, g1, g2, g3, yt}
 	W := Convert(B)
-	csv.Write(W, "Data/gauge.csv")
+	title := fmt.Sprintf("Data/%s", name)
+	csv.Write(W, title)
+	elapsed2 := time.Since(start2)
+	fmt.Printf("Running time is %v\nWriting time is %v\n", elapsed1, elapsed2)
 }
 
 // MakeBeta : Input gamma -> Output Beta function
