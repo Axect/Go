@@ -9,22 +9,14 @@ import (
 )
 
 const (
-	// Mp = Plank Mass
-	Mp = 1.221 * 1E+19
-	// MpR = Reduced Planck Mass
-	MpR = 2.4 * 1E+18
-	// MW = Mass of W
-	MW = 80.385
-	// MZ = Mass of Z
-	MZ = 91.1876
-	// MH = Mass of Higgs
-	MH = 125.09
-	// alphasMZ = alphas(MZ)
-	alphasMZ = 0.1182
-	// h = precision
-	h = 1e-04
-	// Step = Number of lists
-	Step = 1e+04 * 44
+	Mp       = 1.221 * 1E+19 // Plank Mass
+	MpR      = 2.4 * 1E+18   // Reduced Planck Mass
+	MW       = 80.385        // Mass of W
+	MZ       = 91.1876       // Mass of Z
+	MH       = 125.09        // Mass of Higgs
+	alphasMZ = 0.1182        // alphas(MZ)
+	h        = 1e-04         // precision
+	Step     = 1e+04 * 44    // Number of lists
 )
 
 // RGE : To RGE Running
