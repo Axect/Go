@@ -1,7 +1,14 @@
 package main
 
-import "github.com/Axect/Go/CS/prob3"
+import (
+	"fmt"
+	"runtime"
+
+	"github.com/Axect/Go/CS/prob3"
+)
 
 func main() {
-	orbit.DoOrbit()
+	runtime.GOMAXPROCS(8)
+	go orbit.DoOrbit()
+	fmt.Scanln()
 }
