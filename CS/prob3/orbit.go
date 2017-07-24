@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"math"
 	"time"
-
-	"github.com/Axect/Go/Package/csv"
 )
 
 const (
@@ -46,7 +44,7 @@ func AS(v, w Vector, b bool) Vector {
 }
 
 func (v Vector) Mul(f float64) Vector {
-	q := Vector{0, 0, 0}
+	var q Vector
 	q.x, q.y, q.z = v.x*f, v.y*f, v.z*f
 	return q
 }
@@ -64,8 +62,7 @@ func (v Vector) NormPow() (float64, float64) {
 func Accel(coord Vector) Vector {
 	n, _ := coord.NormPow()
 	n = math.Pow(n, 3)
-	ac := -1. * G * M / n
-	a := coord.Mul(ac)
+	a := coord.Mul(-1. * G * M / n)
 	return a
 }
 
@@ -138,12 +135,13 @@ func DoOrbit() {
 	ERR := AS(D.R[N], C.R[0], false)
 	elapsed := time.Since(start)
 	fmt.Printf(" Number of years: %v\n Elapsed Time: %v\n Errors of Coordinates(AU): %v\n", N/730, elapsed, ERR.Mul(1./AU))
-	W1 := Convert(C)
-	W2 := Convert(D)
-	W3 := ConvertF(T1, U1)
-	W4 := ConvertF(T2, U2)
-	csv.Write(W1, "Data/taylor.csv")
-	csv.Write(W2, "Data/reverse.csv")
-	csv.Write(W3, "Data/energy.csv")
-	csv.Write(W4, "Data/energy_rev.csv")
+	fmt.Println(T1[0], U1[0], T2[0], U2[0])
+	//W1 := Convert(C)
+	//W2 := Convert(D)
+	//W3 := ConvertF(T1, U1)
+	//W4 := ConvertF(T2, U2)
+	//csv.Write(W1, "Data/taylor.csv")
+	//csv.Write(W2, "Data/reverse.csv")
+	//csv.Write(W3, "Data/energy.csv")
+	//csv.Write(W4, "Data/energy_rev.csv")
 }
