@@ -1,7 +1,8 @@
-import matplotlib as mpl
-mpl.use('Agg')
+#import matplotlib as mpl
+#mpl.use('Agg')
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 temp = open("Data/Gauge5.csv", 'r')
 List = [line.split(',') for line in temp]

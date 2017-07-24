@@ -17,18 +17,18 @@ const (
 	N     = 730 * 10
 )
 
-func Initialize() (Vector, Vector) {
-	A := Vector{-9.851920196143998e-01 * AU, 1.316466809434336e-01 * AU, -4.877392224782687e-06 * AU}
-	B := Vector{-9.864337701483683e-01 * AU, 1.230799243164879e-01 * AU, -4.374019384763304e-06 * AU}
-	return A, B
+type Vector struct {
+	x, y, z float64
 }
 
 type VList struct {
 	R [N + 1]Vector
 }
 
-type Vector struct {
-	x, y, z float64
+func Initialize() (Vector, Vector) {
+	A := Vector{-9.851920196143998e-01 * AU, 1.316466809434336e-01 * AU, -4.877392224782687e-06 * AU}
+	B := Vector{-9.864337701483683e-01 * AU, 1.230799243164879e-01 * AU, -4.374019384763304e-06 * AU}
+	return A, B
 }
 
 func (v Vector) String() string {

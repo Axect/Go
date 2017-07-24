@@ -150,6 +150,8 @@ layout: false
 
 3. Process
 
+4. Results
+
 ---
 template: inverse
 
@@ -264,6 +266,104 @@ template: inverse
 
 # Process
 ---
+.left-column[
+  ## Process
+
+  ## Make Type
+]
+.right-column[
+```Go
+type Vector struct {
+	x, y, z float64
+}
+
+type VList struct {
+	R [N + 1]Vector
+}
+```
+* Basic Idea  
+  1. $r, v, a$ - instances of Vector
+
+  2. Easy to obtain anything by define method
+
+```Go
+func (v Vector) Mul(f float64) Vector {
+	q := Vector{0, 0, 0}
+	q.x, q.y, q.z = v.x*f, v.y*f, v.z*f
+	return q
+}
+
+func (V *VList) Assign(v Vector, i int) {
+	V.R[i] = v
+}
+```
+]
+---
+.left-column[
+  ## Process
+
+  ## Specific
+]
+.right-column[
+1. Make empty List (VList : which component is Vector type)
+
+2. Initialize two coordinates and Assign them to Coordinate VList
+
+3. Use ``` En(r, v)```, evaluate potential and assign them to Potential VList
+
+4. Start for loop! First obtain acceleration
+
+5. Obtain velocity : we can find velocity difference -> Guess real v2 & v1
+
+6. Assign velocity to Kinetic Energy VList
+
+7. Repeat 10 years and re-initialize by last two coordinates and reverse rotate for 10 years
+]
+---
+template: inverse
+
+# Results
+---
+layout: false
+.left-column[
+  ## Results
+
+  ## Coordinates
+]
+.right-column[
+  <img src="Fig/Orbit_Taylor.png" width=600 height=600></img>
+]
+---
+.left-column[
+  ## Results
+
+  ## Reverse
+]
+.right-column[
+<img src="Fig/Orbit_Reverse.png" width=600 height=600></img>
+]
+---
+.left-column[
+  ## Results
+
+  ## Energy
+]
+.right-column[
+<img src="Fig/Energy.png" width=600 height=600></img>
+]
+---
+.left-column[
+  ## Results
+
+  ## Reverse Energy
+]
+.right-column[
+<img src="Fig/Energy_Reverse.png" width=600 height=600></img>
+]
+---
+template: inverse
+
+# Thank you
 
 
 </textarea>

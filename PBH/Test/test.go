@@ -28,6 +28,7 @@ type RGE struct {
 	g2  float64
 	g3  float64
 	phi float64
+	LG  float64
 	G   float64
 }
 
@@ -56,7 +57,8 @@ func (R *RGE) Initialize(mt, xi float64) {
 	R.g3 = 1.1666 + 0.00314*(alphasMZ-0.1184)/0.007 - 0.00046*(mt-173.34)
 	R.g2 = 0.64779 + 0.00004*(mt-173.34) + 0.00011*(MW-80.384)/0.014
 	R.g1 = 0.35830 + 0.00011*(mt-173.34) - 0.00020*(MW-80.384)/0.014
-	R.G = 1
+	R.LG = 0
+	R.G = math.Exp(-R.LG)
 }
 
 // Running is main action
@@ -94,7 +96,8 @@ func (R *RGE) Running(mt, xi float64) {
 	R.g2 += h * Bg2
 	R.g3 += h * Bg3
 	R.t += h
-	R.G -= h * gamma / (1 + gamma)
+	R.LG += h * gamma / (1 + gamma)
+	R.G = math.Exp(-R.LG)
 	R.phi /= MpR
 }
 
