@@ -130,12 +130,12 @@ func ConvertF(F, G [N + 1]float64) [][]string {
 
 func DoOrbit() {
 	start := time.Now()
-	C, T1, U1 := Taylor(Initialize())
-	D, T2, U2 := Taylor(Reversize(C))
+	C, _, _ := Taylor(Initialize())
+	D, _, _ := Taylor(Reversize(C))
 	ERR := AS(D.R[N], C.R[0], false)
 	elapsed := time.Since(start)
 	fmt.Printf(" Number of years: %v\n Elapsed Time: %v\n Errors of Coordinates(AU): %v\n", N/730, elapsed, ERR.Mul(1./AU))
-	fmt.Println(T1[0], U1[0], T2[0], U2[0])
+	//fmt.Println(T1[0], U1[0], T2[0], U2[0])
 	//W1 := Convert(C)
 	//W2 := Convert(D)
 	//W3 := ConvertF(T1, U1)
