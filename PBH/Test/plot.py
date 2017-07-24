@@ -1,8 +1,9 @@
-import matplotlib.pyplot as plt
-import seaborn as sns
+import matplotlib as mpl
+mpl.use('Agg')
 import numpy as np
+import matplotlib.pyplot as plt
 
-temp = open("Data/Gauge1.csv", 'r')
+temp = open("Data/Gauge5.csv", 'r')
 List = [line.split(',') for line in temp]
 l = len(List)
 lH, g1, g2, g3, yt, phi, G, V = np.empty(l), np.empty(l), np.empty(l), np.empty(l), np.empty(l), np.empty(l), np.empty(l), np.empty(l)
