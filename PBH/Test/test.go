@@ -94,7 +94,7 @@ func (R *RGE) Running(mt, xi float64) {
 	R.g2 += h * Bg2
 	R.g3 += h * Bg3
 	R.t += h
-	R.G += -h * gamma / (1 + gamma)
+	R.G -= h * gamma / (1 + gamma)
 	R.phi /= MpR
 }
 
