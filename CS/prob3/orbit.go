@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"math"
 	"time"
+
+	"github.com/Axect/Go/Package/Time"
 )
 
 const (
@@ -129,12 +131,13 @@ func ConvertF(F, G [N + 1]float64) [][]string {
 }
 
 func DoOrbit() {
-	start := time.Now()
+	//start := time.Now()
+	defer Time.TimeTrack(time.Now(), "Orbit")
 	C, _, _ := Taylor(Initialize())
 	D, _, _ := Taylor(Reversize(C))
 	ERR := AS(D.R[N], C.R[0], false)
-	elapsed := time.Since(start)
-	fmt.Printf(" Number of years: %v\n Elapsed Time: %v\n Errors of Coordinates(AU): %v\n", N/730, elapsed, ERR.Mul(1./AU))
+	//elapsed := time.Since(start)
+	fmt.Printf(" Number of years: %v\n Errors of Coordinates(AU): %v\n", N/730, ERR.Mul(1./AU))
 	//fmt.Println(T1[0], U1[0], T2[0], U2[0])
 	//W1 := Convert(C)
 	//W2 := Convert(D)
