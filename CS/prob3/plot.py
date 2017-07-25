@@ -4,6 +4,8 @@
 # ==============================================================================
 import matplotlib.pyplot as plt
 import seaborn
+# This is the 3D plotting toolkit
+from mpl_toolkits.mplot3d import Axes3D
 # ==============================================================================
 # Receive Sequence
 # ==============================================================================
@@ -43,6 +45,16 @@ plt.xlabel('Time (Days)')
 plt.ylabel('Coordinate (AU)')
 plt.legend()
 plt.savefig('Fig/Orbit_Taylor.png')
+
+fig = plt.figure(figsize=(10,10), dpi=600)
+ax = plt.axes(projection='3d')
+ax.plot(X1, Y1, Z1, label="Position")
+plt.title("Orbit")
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_zlabel('Z')
+plt.legend()
+plt.savefig('Fig/Orbit_3D.png')
 
 plt.figure(figsize=(10,10), dpi=600)
 plt.plot(t, X2, label='x Coord')
