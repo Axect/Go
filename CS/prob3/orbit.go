@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/Axect/Go/Package/Time"
+	"github.com/Axect/Go/Package/csv"
 )
 
 const (
@@ -134,16 +135,16 @@ func ConvertF(F, G [N + 1]float64) [][]string {
 }
 
 func DoOrbit() {
-	C, _, _ := Taylor(Initialize())
-	D, _, _ := Taylor(Reversize(C))
+	C, T1, U1 := Taylor(Initialize())
+	D, T2, U2 := Taylor(Reversize(C))
 	ERR := Plus(D.R[N], Mul(C.R[0], -1.))
 	fmt.Printf(" Number of years: %v\n Errors of Coordinates(AU): %v\n", N/730, Mul(ERR, 1./AU))
-	//W1 := Convert(C)
-	//W2 := Convert(D)
-	//W3 := ConvertF(T1, U1)
-	//W4 := ConvertF(T2, U2)
-	//csv.Write(W1, "Data/taylor.csv")
-	//csv.Write(W2, "Data/reverse.csv")
-	//csv.Write(W3, "Data/energy.csv")
-	//csv.Write(W4, "Data/energy_rev.csv")
+	W1 := Convert(C)
+	W2 := Convert(D)
+	W3 := ConvertF(T1, U1)
+	W4 := ConvertF(T2, U2)
+	csv.Write(W1, "Data/taylor.csv")
+	csv.Write(W2, "Data/reverse.csv")
+	csv.Write(W3, "Data/energy.csv")
+	csv.Write(W4, "Data/energy_rev.csv")
 }

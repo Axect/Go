@@ -28,7 +28,6 @@ type RGE struct {
 	g2  float64
 	g3  float64
 	phi float64
-	LG  float64
 	G   float64
 }
 
@@ -57,7 +56,6 @@ func (R *RGE) Initialize(mt, xi float64) {
 	R.g3 = 1.1666 + 0.00314*(alphasMZ-0.1184)/0.007 - 0.00046*(mt-173.34)
 	R.g2 = 0.64779 + 0.00004*(mt-173.34) + 0.00011*(MW-80.384)/0.014
 	R.g1 = 0.35830 + 0.00011*(mt-173.34) - 0.00020*(MW-80.384)/0.014
-	R.LG = 0
 	R.G = 1
 }
 
@@ -81,10 +79,11 @@ func (R *RGE) Running(mt, xi float64) {
 	Bg22 := 3./2*math.Pow(R.g1, 2)*math.Pow(R.g2, 3) + 35./6*math.Pow(R.g2, 5) + 12.*math.Pow(R.g2, 3)*math.Pow(R.g3, 2) - 3./2*sh*math.Pow(R.g2, 3)*math.Pow(R.yt, 2)
 	Bg32 := 11./6*math.Pow(R.g1, 2)*math.Pow(R.g3, 3) + 9./2*math.Pow(R.g2, 2)*math.Pow(R.g3, 3) - 26.*math.Pow(R.g3, 5) - 2.*sh*math.Pow(R.g3, 3)*math.Pow(R.yt, 2)
 	Byt2 := R.yt * (-23./4*math.Pow(R.g2, 4) - 3./4*math.Pow(R.g1, 2)*math.Pow(R.g2, 2) + 1187./216*math.Pow(R.g1, 4) + 9.*math.Pow(R.g2, 2)*math.Pow(R.g3, 2) + 19./9*math.Pow(R.g1, 2)*math.Pow(R.g3, 2) - 108.*math.Pow(R.g3, 4) + (225./16*math.Pow(R.g2, 2)+131./16*math.Pow(R.g1, 2)+36.*math.Pow(R.g3, 2))*sh*math.Pow(R.yt, 2) + 6.*(-2.*math.Pow(sh, 2)*math.Pow(R.yt, 4)-2.*math.Pow(sh, 3)*math.Pow(R.yt, 2)*R.lH+math.Pow(sh, 2)*math.Pow(R.lH, 2)))
-	gamma2 := 1. / math.Pow(16*math.Pow(math.Pi, 2), 2) * (271./32*math.Pow(R.g2, 4) - 9./16*math.Pow(R.g1, 2)*math.Pow(R.g2, 2) - 431./96*sh*math.Pow(R.g1, 4) - 5./2*(9./4*math.Pow(R.g2, 2)+17./12*math.Pow(R.g1, 2)+8*math.Pow(R.g3, 2))*math.Pow(R.yt, 2) + 27./4*sh*math.Pow(R.yt, 4) - 6*math.Pow(sh, 3)*math.Pow(R.lH, 2))
+	gamma2 := -1. / (math.Pow(16*math.Pow(math.Pi, 2), 2)) * (271./32*math.Pow(R.g2, 4) - 9./16*math.Pow(R.g1, 2)*math.Pow(R.g2, 2) - 431./96*sh*math.Pow(R.g1, 4) - 5./2*(9./4*math.Pow(R.g2, 2)+17./12*math.Pow(R.g1, 2)+8*math.Pow(R.g3, 2))*math.Pow(R.yt, 2) + 27./4*sh*math.Pow(R.yt, 4) - 6*math.Pow(sh, 3)*math.Pow(R.lH, 2))
 
 	//Calc Beta function
 	gamma := gamma1 + gamma2
+	fmt.Println(sh, gamma2, gamma)
 	g := MakeBeta(gamma)
 	Bg1, Bg2, Bg3 := g(Bg11, Bg12), g(Bg21, Bg22), g(Bg31, Bg32)
 	BlH, Byt := g(BlH1, BlH2), g(Byt1, Byt2)
@@ -96,7 +95,6 @@ func (R *RGE) Running(mt, xi float64) {
 	R.g2 += h * Bg2
 	R.g3 += h * Bg3
 	R.t += h
-	R.LG += h * gamma / (1 + gamma)
 	R.G -= h * gamma / (1 + gamma)
 	R.phi /= MpR
 }
