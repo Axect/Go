@@ -4,6 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+MpR      = 2.4 * 1E+18 
+
 temp = open("Data/Gauge5.csv", 'r')
 List = [line.split(',') for line in temp]
 l = len(List)
@@ -15,13 +17,13 @@ for i, group in enumerate(List):
     g2[i] = group[2]
     g3[i] = group[3]
     yt[i] = group[4]
-    phi[i] = group[5]
+    phi[i] = float(group[5])/(MpR**2)
     G[i] = group[6]
-    V[i] = group[7]
+    V[i] = float(group[7])/(MpR**4)
 
 x = np.array([i/10000 for i in range(len(g1))])
 
-plt.figure(figsize=(10, 6), dpi=300)
+plt.figure(figsize=(8, 6), dpi=300)
 plt.plot(x, lH, label="lambda")
 plt.plot(x, g1, label="g1")
 plt.plot(x, g2, label='g2')
@@ -48,5 +50,5 @@ plt.legend()
 plt.title("Potential")
 plt.xlabel('phi')
 plt.ylabel('V')
-plt.axis([0, 1, 0, 1e-06])
+#plt.axis([0, 1, 0, 1e-06])
 plt.savefig("Fig/Pot1.png")

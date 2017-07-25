@@ -56,13 +56,13 @@ func (R *RGE) Initialize(mt, xi float64) {
 	R.g3 = 1.1666 + 0.00314*(alphasMZ-0.1184)/0.007 - 0.00046*(mt-173.34)
 	R.g2 = 0.64779 + 0.00004*(mt-173.34) + 0.00011*(MW-80.384)/0.014
 	R.g1 = 0.35830 + 0.00011*(mt-173.34) - 0.00020*(MW-80.384)/0.014
+	R.phi = math.Sqrt(2.) / R.yt * mt * math.Exp(R.t)
 	R.G = 1
 }
 
 // Running is main action
 func (R *RGE) Running(mt, xi float64) {
 	hg := math.Sqrt(2.) / R.yt * mt * math.Exp(R.t)
-	R.phi = hg
 	sh := (1. + xi*math.Pow(hg, 2)/math.Pow(MpR, 2)) / (1. + (1.+6.*xi)*xi*math.Pow(hg, 2)/math.Pow(MpR, 2))
 
 	// 1-loop Beta function
@@ -94,12 +94,13 @@ func (R *RGE) Running(mt, xi float64) {
 	R.g2 += h * Bg2
 	R.g3 += h * Bg3
 	R.t += h
+	R.phi = math.Sqrt(2.) / R.yt * mt * math.Exp(R.t)
 	R.G -= h * gamma / (1 + gamma)
-	R.phi /= MpR
+	//R.phi /= MpR //Normalized
 }
 
 func (P *Cosmo) Running(xi float64, R RGE) {
-	P.V = (R.lH * math.Pow(R.G, 4) * math.Pow(R.phi, 4)) / (4 * math.Pow(1+xi*math.Pow(R.G, 2)*math.Pow(R.phi, 2), 2))
+	P.V = (R.lH * math.Pow(R.G, 4) * math.Pow(R.phi, 4)) / (4 * math.Pow(1+xi*math.Pow(R.G, 2)*math.Pow(R.phi, 2)/math.Pow(MpR, 2), 2))
 }
 
 // Convert to write
