@@ -100,7 +100,7 @@ func (R *RGE) Running(mt, xi float64) {
 }
 
 func (P *Cosmo) Running(xi float64, R RGE) {
-	P.V = (R.lH * math.Pow(R.G, 4) * math.Pow(R.phi, 4)) / (4 * math.Pow(1+xi*math.Pow(R.G, 2)*math.Pow(R.phi, 2)/math.Pow(MpR, 2), 2))
+	P.V = (R.lH * math.Pow(R.G, 4) * math.Pow(R.phi, 4)) / (4 * math.Pow((1+xi*math.Pow(R.G, 2)*math.Pow(R.phi, 2)/math.Pow(MpR, 2)), 2))
 }
 
 // Convert to write
@@ -108,9 +108,9 @@ func Convert(B Bay) [][]string {
 	l := len(B)
 	W := make([][]string, Step, Step)
 	for i := range B[0] {
-		W[i] = []string{fmt.Sprint(B[0][i])}
-		for j := 1; j < l; j++ {
-			W[i] = append(W[i], fmt.Sprint(B[j][i]))
+		W[i] = make([]string, l, l)
+		for j := 0; j < l; j++ {
+			W[i][j] = fmt.Sprint(B[j][i])
 		}
 	}
 	return W
