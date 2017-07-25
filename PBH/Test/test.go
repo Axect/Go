@@ -83,7 +83,6 @@ func (R *RGE) Running(mt, xi float64) {
 
 	//Calc Beta function
 	gamma := gamma1 + gamma2
-	fmt.Println(sh, gamma2, gamma)
 	g := MakeBeta(gamma)
 	Bg1, Bg2, Bg3 := g(Bg11, Bg12), g(Bg21, Bg22), g(Bg31, Bg32)
 	BlH, Byt := g(BlH1, BlH2), g(Byt1, Byt2)
