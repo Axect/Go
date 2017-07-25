@@ -63,7 +63,7 @@ func (R *RGE) Initialize(mt, xi float64) {
 func (R *RGE) Running(mt, xi float64) {
 	hg := math.Sqrt(2.) / R.yt * mt * math.Exp(R.t)
 	R.phi = hg
-	sh := ((1. + xi*math.Pow(hg, 2)) / math.Pow(MpR, 2)) / (1. + (1.+6.*xi)*xi*math.Pow(hg, 2)/math.Pow(MpR, 2))
+	sh := (1. + xi*math.Pow(hg, 2)/math.Pow(MpR, 2)) / (1. + (1.+6.*xi)*xi*math.Pow(hg, 2)/math.Pow(MpR, 2))
 
 	// 1-loop Beta function
 	BlH1 := 6.*(1.+3.*math.Pow(sh, 2))*math.Pow(R.lH, 2) + 12.*R.lH*math.Pow(R.yt, 2) - 6.*math.Pow(R.yt, 4) - 3.*R.lH*(3.*math.Pow(R.g2, 2)+math.Pow(R.g1, 2)) + 3./8*(2.*math.Pow(R.g2, 4)+math.Pow((math.Pow(R.g1, 2)+math.Pow(R.g2, 2)), 2))
