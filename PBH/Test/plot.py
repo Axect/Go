@@ -21,7 +21,7 @@ for i, group in enumerate(List):
 
 x = np.array([i/10000 for i in range(len(g1))])
 
-plt.figure(figsize=(8, 6), dpi=300)
+plt.figure(figsize=(10, 6), dpi=300)
 plt.plot(x, lH, label="lambda")
 plt.plot(x, g1, label="g1")
 plt.plot(x, g2, label='g2')

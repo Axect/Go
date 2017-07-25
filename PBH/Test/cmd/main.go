@@ -11,16 +11,16 @@ import (
 
 func main() {
 	var wg sync.WaitGroup
-	wg.Add(10)
+	wg.Add(5)
 	// For Laptop
 	runtime.GOMAXPROCS(20)
 	// For Server
 	// runtime.GOMAXPROCS(20)
 	start := time.Now()
-	for i := 1; i <= 10; i++ {
+	for i := 1; i <= 5; i++ {
 		go func(n int) {
 			title := fmt.Sprintf("Gauge%d.csv", n)
-			test.Run(170.8+0.1*float64(n), 100, title)
+			test.Run(170.8+0.1*float64(n), 50, title)
 			defer wg.Done()
 		}(i)
 	}
