@@ -6,7 +6,7 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/Axect/Go/CS/prob4"
+	"github.com/Axect/Go/CS/prob4/prob4-1"
 	"github.com/Axect/Go/Package/Time"
 )
 
