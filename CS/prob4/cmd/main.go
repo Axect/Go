@@ -15,7 +15,7 @@ const (
 )
 
 func main() {
-	runtime.GOMAXPROCS(20)
+	runtime.GOMAXPROCS(4)
 	c := make(chan float64)
 	defer Time.TimeTrack(time.Now(), "Total Process")
 	for i := 0; i < n; i++ {
@@ -29,5 +29,5 @@ func main() {
 	for j := 0; j < n; j++ {
 		sum += <-c / float64(n) // Transfer value in channel to sum
 	}
-	fmt.Printf("Approx pi: %v, Error: %v%%\n", sum, (math.Pi-sum)/math.Pi*100)
+	fmt.Printf("Approx pi: %v, Error: %v%%\n", sum, math.Abs((math.Pi-sum)/math.Pi*100))
 }
