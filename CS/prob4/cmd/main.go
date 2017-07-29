@@ -15,7 +15,7 @@ const (
 )
 
 func main() {
-	runtime.GOMAXPROCS(4)
+	runtime.GOMAXPROCS(runtime.NumCPU())
 	c := make(chan float64)
 	d := make(chan float64)
 	defer Time.TimeTrack(time.Now(), "Total Process")
