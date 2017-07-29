@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	n = 1000
+	n = 1
 )
 
 func main() {
@@ -20,7 +20,7 @@ func main() {
 	defer Time.TimeTrack(time.Now(), "Total Process")
 	for i := 0; i < n; i++ {
 		go func(chan float64) {
-			c <- pi.Pi2D(10000) // Transfer pi value to channel
+			c <- pi.Pi2D(10000000) // Transfer pi value to channel
 		}(c)
 	}
 
