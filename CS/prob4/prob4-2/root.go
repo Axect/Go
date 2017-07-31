@@ -2,6 +2,7 @@ package root
 
 import (
 	"fmt"
+	"math"
 )
 
 const h = 1e-09
@@ -34,7 +35,7 @@ func NewtonErr(f Normal, x float64, ans float64) float64 {
 	for i < 100 {
 		x -= f(x) / df(x)
 		err = Error(x, ans)
-		if err < 1e-10 {
+		if math.Abs(err) == 0 {
 			break
 		}
 		i++
