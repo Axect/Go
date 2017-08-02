@@ -16,9 +16,9 @@ func GR() float64 {
 // CheckMax checks max
 func CheckMax(list []float64, key bool) {
 	if key {
-		fmt.Println("Point of local maxima : ", list[len(list)-1])
+		fmt.Println("Point of local minima : ", list[len(list)-1])
 	} else {
-		fmt.Println("Can't find local maxima in this range")
+		fmt.Println("Can't find local minima in this range")
 		fmt.Println("The Last value is :", list[len(list)-1])
 	}
 }
