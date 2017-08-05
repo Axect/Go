@@ -1,4 +1,4 @@
-package laplace
+package Lagrange
 
 import (
 	"log"
@@ -16,8 +16,8 @@ func Mul(f Normal, x float64) Normal {
 	}
 }
 
-// Laplace is laplace interpolation
-func Laplace(xseq []float64, i int) Normal {
+// Lagrange is Lagrange interpolation
+func Lagrange(xseq []float64, i int) Normal {
 	if i >= len(xseq) || i < 0 {
 		log.Fatal("Input proper integer") // Trivial Error Filter (index not matched)
 	}
@@ -35,13 +35,13 @@ func Laplace(xseq []float64, i int) Normal {
 	return lapl
 }
 
-// LPolynomial means laplace polynomial
+// LPolynomial means Lagrange polynomial
 func LPolynomial(xseq, yseq []float64) Normal {
 	var templapl Normal
 	result := func(x float64) float64 {
 		s := 0.
 		for i, yval := range yseq {
-			templapl = Laplace(xseq, i)
+			templapl = Lagrange(xseq, i)
 			templapl = Mul(templapl, yval)
 			s += templapl(x)
 		}
