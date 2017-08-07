@@ -3,12 +3,12 @@ package main
 import (
 	"fmt"
 
-	. "github.com/Axect/Go/Numerical/Lagrange"
+	. "github.com/Axect/Go/Package/Numeric/Lagrange"
 )
 
 func main() {
-	xseq := []float64{1., 2., 3., 4.}
-	yseq := []float64{1., 4., 9., 16.}
-	p := LPolynomial(xseq, yseq)
-	fmt.Println(p(100))
+	X := []float64{1., 2., 3., 4.}
+	Y := []float64{1., 4., 9., 16.}
+	L := LPolynomial(X, Y)
+	fmt.Println(L(2.5))
 }
