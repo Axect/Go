@@ -15,12 +15,14 @@ F = FramedPlot(
 )
 
 P = Points(x, y, size=.1)
-C = Curve(X, Y)
+C = Curve(X, Y, color="blue")
+C2 = Curve(x, y)
 setattr(P, "label", "points")
 setattr(C, "label", "spline")
-lgnd = Legend(.5, .8, [P, C])
+setattr(C2, "label", "line")
+lgnd = Legend(.5, .8, [P, C, C2])
 
-add(F, P, C, lgnd)
+add(F, P, C, C2, lgnd)
 savefig(F, "Test.svg", (1000,800))
 
 run(`inkscape -z Test.svg -e Test.png -d 300 --export-background=WHITE`)
