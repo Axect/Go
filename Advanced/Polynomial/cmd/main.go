@@ -16,6 +16,8 @@ func main() {
 	D.Show()
 	E := Polynomial.Diff(D)
 	E.Show()
+	T := Polynomial.Integrate(E, 3)
+	T.Show()
 	fmt.Println()
 
 	var P, Q Polynomial.Polynomial
