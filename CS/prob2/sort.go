@@ -142,7 +142,7 @@ func DoSort() {
 	Physicists := make([]string, len(List), len(List))
 	Scores, Ranks := make([]int64, len(List), len(List)), make([]int64, len(List), len(List))
 	for i, group := range List {
-		Physicsists[i] = group[0]
+		Physicists[i] = group[0]
 		Scores[i], _ = strconv.ParseInt(group[1], 0, 64)
 		Ranks[i], _ = strconv.ParseInt(group[2], 0, 64)
 	}
