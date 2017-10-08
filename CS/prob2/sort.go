@@ -139,7 +139,7 @@ func DoSort() {
 
 	// Read CSV
 	List := csv.Read("../Data/physics.csv")
-	Physicsists := make([]string, len(List), len(List))
+	Physicists := make([]string, len(List), len(List))
 	Scores, Ranks := make([]int64, len(List), len(List)), make([]int64, len(List), len(List))
 	for i, group := range List {
 		Physicsists[i] = group[0]
