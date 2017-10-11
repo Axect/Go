@@ -5,14 +5,18 @@ import (
 	"math"
 )
 
+// Geometry can include Sphere, Cube and anything which has volume() method.
+// Similar with Inheritance
 type Geometry interface {
 	volume() float64
 }
 
+// Sphere is struct for sphere
 type Sphere struct {
 	radius float64
 }
 
+// Cube is struct for cube
 type Cube struct {
 	length float64
 }
