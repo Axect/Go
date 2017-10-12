@@ -5,12 +5,12 @@ import (
 	"math"
 )
 
-// VectorType is interface for vector
-type VectorType = string
+// TensorType is interface for vector
+type TensorType = int
 
 // Vector is mother type for all vectors
 type Vector struct {
-	Type VectorType
+	Type TensorType
 	Comp []float64
 }
 
@@ -23,8 +23,8 @@ func (V *Vector) Norm() float64 {
 	return math.Sqrt(s)
 }
 
-// Show shows vector type and components
+// Show shows  type and components
 func (V *Vector) Show() {
-	fmt.Printf("%d-%s\n", len(V.Comp), V.Type)
+	fmt.Printf("%d-%s\n", len(V.Comp), Special[V.Type])
 	fmt.Println(V.Comp)
 }
