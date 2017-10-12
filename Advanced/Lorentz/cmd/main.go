@@ -7,4 +7,6 @@ import (
 func main() {
 	A := sr.NewCovector([]float64{1., 2., 3., 4.})
 	A.Show()
+	A.Type = 2
+	A.Show()
 }
