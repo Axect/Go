@@ -4,6 +4,7 @@ import "fmt"
 
 func main() {
 	var A int
-	n, _ := fmt.Scanln(&A)
+	n, msg := fmt.Scanln(&A)
 	fmt.Println(n, A)
+	fmt.Println(msg) // Error message
 }
