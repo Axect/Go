@@ -14,6 +14,6 @@ func main() {
 	name = "Axect"
 	age = 25
 	location = "Gimpo"
-	
+
 	fmt.Println(name)
 }
